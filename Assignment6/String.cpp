@@ -62,14 +62,14 @@ char String::at(const int index) const {
     /*
     Returns the value of the str array at a given index. Will end program if index is out of range
     Input:  Index to get value at
-    Output: Returns char value - prints error message and ends program if index out of range
+    Output: Returns char value - prints error message returns '0' if out of range
     */
     if(index<size && index>=0){
         return(str[index]);
     }
     else{
         cout << "Index out of range" << endl;
-        exit(1);
+        return('0');
     }
 }
 
@@ -234,6 +234,10 @@ void String::print() const{
     cout << endl;
 }
 
+/*void String::operator=(const &rhs){
+    
+}*/
+
 bool String::operator==(const String other) const{
     /*
     Overloads == operator by calling equal method
@@ -241,11 +245,14 @@ bool String::operator==(const String other) const{
     return(equal(other));
 }
 
-bool String::operator+(const String other){
+String String::operator+(const String other) const{
     /*
-    overloads + operator by calling add method
+    overloads + operator by calling add method and returning a concatonated string
+    does not modify either instance of String, it returns a new one
     */
-    return(add(other));
+    String ret(size, str);
+    ret.add(other);
+    return(ret);
 }
 
 String::~String(){

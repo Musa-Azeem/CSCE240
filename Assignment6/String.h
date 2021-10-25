@@ -21,9 +21,10 @@ class String
         bool equal(const String other) const;
         bool add(const String other);
         void print() const;
-
+	
+	//void operator=(const String &rhs);
         bool operator==(const String other) const;
-        bool operator+(const String other);
+        String operator+(const String other) const;
 
         ~String();
 };
