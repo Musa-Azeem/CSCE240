@@ -11,7 +11,7 @@ int main(int argc, char **argv){
 	s0.print();
 	
 	//parameterized constructor
-	String s1(8,str1);
+	String s1(str1, 8);
 
 	//copy
 	String s2(s1);
@@ -44,22 +44,22 @@ int main(int argc, char **argv){
 	//find
 	char str3[] = {'l','o','l','o','l','o','l','o'};
 	char str4[] = {'h','e','l','l','o'};
-	String s3(8, str3);
+	String s3(str3, 8);
 	s3.print();
-	String s4(5, str4);
+	String s4(str4, 5);
 	s4.print();
 	char strfind1[] = {'l','o','l'};
-	String sf1(3, strfind1);
+	String sf1(strfind1, 3);
 	char strfind2[] = {'l','o'};
-	String sf2(2, strfind2);
+	String sf2(strfind2, 2);
 	char strfind3[] = {'l'};
-	String sf3(1, strfind3);
+	String sf3(strfind3, 1);
 	char strfind4[] = {'l','l'};
-	String sf4(2, strfind4);
+	String sf4(strfind4, 2);
 	char strfind5[] = {' '};
-	String sf5(1, strfind5);
+	String sf5(strfind5,1);
 	char strfind6[] = {'2','4','0'};
-	String sf6(3, strfind6);
+	String sf6(strfind6, 3);
 
 	cout << "find3 lol: " << s3.find(sf1, 0) << endl;
 	cout << "find3 lol 3: " << s3.find(sf1, 3) << endl;

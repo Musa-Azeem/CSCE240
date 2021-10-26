@@ -21,7 +21,7 @@ String::String(const int _size){
     size = _size;
     str = new char[size];
 }
-String::String(const int _size, const char _str[]){
+String::String(const char _str[], const int _size){
     /*
     Constructor - create char array from a given array of a certain size
     Input:  Size of array, char array
@@ -99,7 +99,7 @@ String String::substring(const int startIndex, const int length) const {
        ret[retI] = at(i);
        retI++;
    }
-   String substr(length, ret);
+   String substr(ret, length);
    return(substr);
 }
 

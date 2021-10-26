@@ -6,7 +6,7 @@ class String
     public:
         String();
         String(const int _size);
-        String(const int _size, const char _str[]);
+        String(const char _str[], const int _size);
         String(const String &rhs);
 
 
