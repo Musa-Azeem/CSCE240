@@ -24,7 +24,7 @@ class String
 	
 	//void operator=(const String &rhs);
         bool operator==(const String other) const;
-        String operator+(const String other) const;
+        //String operator+(const String other) const;
 
         ~String();
 };

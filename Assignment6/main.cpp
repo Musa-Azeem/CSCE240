@@ -9,9 +9,11 @@ int main(int argc, char **argv){
 	//default
 	String s0;
 	s0.print();
+	
+	//parameterized constructor
+	String s1(8,str1);
 
 	//copy
-	String s1(8,str1);
 	String s2(s1);
 	s1.print();
 	s2.print();
@@ -27,8 +29,9 @@ int main(int argc, char **argv){
 	s2.print();
 
 	//empty
+	cout << "empty0: " << s0.empty() << endl;
 	cout << "empty1: " << s1.empty() << endl;
-	cout << "empty2: " << s2.empty() << endl;
+	cout << "notempty2: " << s2.empty() << endl;
 
 	//at
 	cout << "invalid2: " << s2.at(10) <<endl;
@@ -62,6 +65,7 @@ int main(int argc, char **argv){
 	cout << "find3 lol 3: " << s3.find(sf1, 3) << endl;
 	cout << "find3 lo: " << s3.find(sf2,0) <<endl;
 	cout << "find3 lo 5: " << s3.find(sf2, 5) <<endl;
+	cout << "find3 lo 2: " << s3.find(sf2, 2) << endl;
 	cout << "find3 4: " << s3.find(s4,0) <<endl;
 	cout << "find4 l: " << s4.find(sf3, 0) <<endl;
 	cout << "find4 ll: " << s4.find(sf4, 0) <<endl; 
@@ -77,23 +81,30 @@ int main(int argc, char **argv){
 	s2.print();
 	s3.print();
 	s4.print();
+
 	String e2(s2);
 	cout << "inequal: " << s2.equal(s0) << endl;
-	cout << "equal: ";
+	cout << "equal: " << s2.equal(e2) << endl;
+	cout << "equal == s2 e2: ";
 	if(s2==e2)
 		cout << "1"<< endl;
-	cout << "inequal" << s2.equal(s3) << endl;
+	cout << "inequal: " << s2.equal(s3) << endl;
+	cout << "inequal: ";
+	if(!(s4==s3))
+		cout << "0" << endl;
 
 	//add
+	s1.print();
+	s2.print();
 	s1.add(s2);
 	cout << "s1+s2: ";
 	s1.print();
+
+	s3.print();
+	s4.print();
 	s3.add(s4);
 	cout << "s3+s4: ";
 	s3.print();
-	String s5(s0+s2);
-	cout << "s0+s2: ";
-	s5.print();
 		
 	//print
 	cout << "prints" << endl;
@@ -102,7 +113,6 @@ int main(int argc, char **argv){
 	s2.print();
 	s3.print();
 	s4.print();
-	s5.print();
 
 	//count
 	cout << "count2 240: " << s2.count(sf6) << endl;

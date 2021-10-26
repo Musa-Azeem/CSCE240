@@ -234,10 +234,6 @@ void String::print() const{
     cout << endl;
 }
 
-/*void String::operator=(const &rhs){
-    
-}*/
-
 bool String::operator==(const String other) const{
     /*
     Overloads == operator by calling equal method
@@ -245,15 +241,17 @@ bool String::operator==(const String other) const{
     return(equal(other));
 }
 
+/*
 String String::operator+(const String other) const{
-    /*
+    *
     overloads + operator by calling add method and returning a concatonated string
     does not modify either instance of String, it returns a new one
-    */
+    *
     String ret(size, str);
     ret.add(other);
     return(ret);
 }
+*/
 
 String::~String(){
     /*
