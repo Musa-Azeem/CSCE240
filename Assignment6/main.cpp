@@ -24,7 +24,7 @@ int main(int argc, char **argv){
 	
 	//clear
 	s1.clear();
-	cout << "cleared 1: ";
+	cout << "cleared 1: " << endl;
 	s1.print();
 	s2.print();
 
@@ -88,6 +88,8 @@ int main(int argc, char **argv){
 	cout << "equal == s2 e2: ";
 	if(s2==e2)
 		cout << "1"<< endl;
+	else
+		cout << "0" << endl;
 	cout << "inequal: " << s2.equal(s3) << endl;
 	cout << "inequal: ";
 	if(!(s4==s3))
@@ -102,9 +104,11 @@ int main(int argc, char **argv){
 
 	s3.print();
 	s4.print();
+	cout << s3.length() << endl;
 	s3.add(s4);
 	cout << "s3+s4: ";
 	s3.print();
+	cout << s3.length() <<endl;
 		
 	//print
 	cout << "prints" << endl;

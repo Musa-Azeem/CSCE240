@@ -125,7 +125,7 @@ bool String::empty() const{
     return(size==0);
 }
 
-int String::find(const String substr, const int startIndex) const{
+int String::find(const String &substr, const int startIndex) const{
     /*
     Searches for a sub string within the str array
         starts by finding a char in str after or at the start index that matches the first char of the substr
@@ -145,8 +145,8 @@ int String::find(const String substr, const int startIndex) const{
     for(int i=startIndex; i<(size+1)-subLength; i++){
         //loop from startIndex to the size of str +1 minus the length of substr, which is last index substr could possible be
         if(at(i)==startChar){
-            String tempSubStr(substring(i,subLength));
-            if(tempSubStr == substr){
+            //String tempSubStr(substring(i,subLength));
+            if(substring(i,subLength) == substr){
                 return(i);
             }
         }
@@ -154,7 +154,7 @@ int String::find(const String substr, const int startIndex) const{
     return(-1);
 }
 
-int String::count(const String substr) const{
+int String::count(const String &substr) const{
     /*
     Finds how many times the substr occurs - repeated substr overlapping another instance of substr are counted
         calls find function, starting from index 0 - if the function does not return -1, an instance of the substr was found
@@ -178,7 +178,7 @@ int String::count(const String substr) const{
 }
 
 
-bool String::equal(const String other) const{
+bool String::equal(const String &other) const{
     /*
     returns 1 if two String objects are equal and returns 0 if not
     input:  instance of String type
@@ -195,7 +195,7 @@ bool String::equal(const String other) const{
     return(1);
 }
 
-bool String::add(const String other){
+bool String::add(const String &other){
     /*
     concatonates two String objects
         creates new temp char pointer array of the combined size of two arrays
@@ -234,7 +234,7 @@ void String::print() const{
     cout << endl;
 }
 
-bool String::operator==(const String other) const{
+bool String::operator==(const String &other) const{
     /*
     Overloads == operator by calling equal method
     */

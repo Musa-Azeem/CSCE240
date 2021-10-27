@@ -16,13 +16,13 @@ class String
         String substring(const int startIndex, const int length) const;
         void clear();
         bool empty() const;
-        int find(const String substr, const int startIndex) const;
-        int count(const String subtr) const;
-        bool equal(const String other) const;
-        bool add(const String other);
+        int find(const String &substr, const int startIndex) const;
+        int count(const String &subtr) const;
+        bool equal(const String &other) const;
+        bool add(const String &other);
         void print() const;
         
-        bool operator==(const String other) const;
+        bool operator==(const String &other) const;
 
         ~String();
 };
