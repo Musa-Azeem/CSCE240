@@ -21,6 +21,7 @@ class myString
         int count(const myString &subtr) const;
         bool equal(const myString &other) const;
         bool add(const myString &other);
+        void remove(const int index, const int length);
         void print() const;
         
         const myString & operator=(const myString &rhs);

@@ -229,6 +229,25 @@ bool myString::add(const myString &other){
     return(1);
 }
 
+void myString::remove(const int index, const int length){
+    if(index < 0 || index >= size || index+length > size){
+        cout << "Index or length out of range" << endl;
+        return;
+    }
+    char *temp;
+    int newSize = size-length;
+    temp = new char[newSize];
+    for(int i=0; i<index; i++){
+        temp[i] = at(i);            //copy elements of str until the index
+    }
+    for(int i=index+length; i<size; i++){   //start copying again after index+length, skipping elements to be removed
+        temp[i-length] = at(i);             //add elements from str to immediate next index of temp
+    }
+    delete [] str;
+    str = temp;
+    size = newSize;
+}
+
 void myString::print() const{
     /*
     prints contents of str array
@@ -288,7 +307,7 @@ myString myString::operator+(const myString &rhs) const{
         does not modify the calling object or rhs
     Input:  instance of myString
         passed by reference for efficiency, const to protect rhs
-    Output: instance of myString - calling myString concatonated with rhs 
+    Output: instance of myString - calling object concatonated with rhs 
     */
     int retSize(length()+rhs.length());
     myString ret(retSize);    //create new myString of combined size
@@ -299,5 +318,20 @@ myString myString::operator+(const myString &rhs) const{
         ret.set(i, rhs.at(i-size));
     }
     return(ret);
+}
 
+myString myString::operator-(const myString &rhs) const{
+    /*
+    Overloads - operator
+        creates a new myString object and copies this instance,
+        it then removes any instance of rhs in calling object 
+        does not modify the calling object or rhs
+    Input:  instance of myString
+        passed by reference for efficiency, const to protect rhs
+    Output: instance of myString - calling object with any substring equal to rhs removed 
+    */
+    myString ret(size);
+    
+    
+ 
 } 
