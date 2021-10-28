@@ -7,6 +7,7 @@ Inputs: Requires Array.h and Array.cpp for functions.
 	The next n inputs are values to populate the array
 	The next input is a double value to insert into the array
 	The next input is the index in which to insert the value jsut entered
+	^last two lines twice again
 	The next input is an index to remove the value at that index from the array
 	The next input is an index to get the value at that index from the array
 	The next input is an value to set in the array
@@ -44,7 +45,38 @@ int main(int argv, char **arg){
 	print(arr, arrSize);
 	cout << arrSize << endl;
 
+	cout << endl;
+	cout << "Enter a double to insert into the array, then the index where it will be inserted" << endl;
+	cin >> val;
+	cin >> index;
+	insert(arr, arrSize, index, val);	
+	print(arr, arrSize);
+	cout << arrSize << endl;
+	
+	cout << endl;
+	cout << "Enter a double to insert into the array, then the index where it will be inserted" << endl;
+	cin >> val;
+	cin >> index;
+	insert(arr, arrSize, index, val);	
+	print(arr, arrSize);
+	cout << arrSize << endl;
+	
+	cout << "Enter a double to insert into the array, then the index where it will be inserted" << endl;
+	cin >> val;
+	cin >> index;
+	insert(arr, arrSize, index, val);	
+	print(arr, arrSize);
+	cout << arrSize << endl;
+	
+
 	//test remove
+	cout << "Enter an index to remove the value at that index from the array" << endl;
+	cin >> index;
+	remove(arr, arrSize, index);
+	print(arr, arrSize);
+	cout << arrSize << endl;
+	
+	
 	cout << "Enter an index to remove the value at that index from the array" << endl;
 	cin >> index;
 	remove(arr, arrSize, index);
@@ -79,7 +111,7 @@ int main(int argv, char **arg){
 	cin >> arrSize2;
 	init(arr2, arrSize2);
 
-	cout << "Are arr1 and arr2 equal? " << equals(arr1, arrSize1, arr2, arrSize2) <<endl;
+	//cout << "Are arr1 and arr2 equal? " << equals(arr1, arrSize1, arr2, arrSize2) <<endl;
 
 	//test clear
 	clear(arr, arrSize);
