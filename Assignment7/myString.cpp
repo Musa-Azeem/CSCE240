@@ -45,6 +45,13 @@ myString::myString(const myString &rhs){
         set(i, rhs.at(i));
     }
 }
+myString::~myString(){
+    /*
+    deconstructor
+    deallocates memory for str array
+    */
+    delete [] str;
+}
 void myString::set(const int index, const char val){
     /*
     set value of str array at a given index. Will not set if index is out of range
@@ -233,17 +240,39 @@ void myString::print() const{
     }
     cout << endl;
 }
-
-bool myString::operator==(const myString &other) const{
+const myString & myString::operator=(const myString &rhs){
     /*
-    Overloads == operator by calling equal method
-    */
-    return(equal(other));
-}
-myString::~myString(){
-    /*
-    deconstructor
-    deallocates memory for str array
+        Overloads = operator
+            deletes current str array
+            updates size to be size of rhs and creates str as new array of new size
+            copies elements of the str array of rhs
+            returns rhs for cascading
+        Input:  an instance of myString array, rhs of = operator
+        Output: instance of myString array, same reference given as input 
     */
     delete [] str;
+    size = rhs.length();
+    str = new char[size];
+    for(int i=0;i<size;i++){
+        set(i, rhs.at(i));
+    }
+    return(rhs);
+}
+bool myString::operator==(const myString &rhs) const{
+    /*
+    Overloads == operator
+        calls equal() method and returns the result
+    Input:  instance of myString, rhs of == operator
+    Output: bool indicating whether or not the objects are equal (1 if equal)
+    */
+    return(equal(rhs));
+}
+
+bool myString::operator!=(const myString &rhs) const{
+    /*
+    Overlaods != operator
+        calls equal() method and returns the opposite of the result
+    Input:  instance of myString 
+    */
+    return(!equal(rhs));
 }

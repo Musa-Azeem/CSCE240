@@ -23,7 +23,7 @@ class myString
         bool add(const myString &other);
         void print() const;
         
-        myString operator=(const myString &rhs);
+        const myString & operator=(const myString &rhs);
         bool operator==(const myString &rhs) const;
         bool operator!=(const myString &rhs) const;
         myString operator+(const myString &rhs) const;

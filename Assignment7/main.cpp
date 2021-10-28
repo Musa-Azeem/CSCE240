@@ -4,20 +4,20 @@
 using namespace std;
 
 int main(int argc, char **argv){
-	char str1[] = {'c','s','c','e',' ','2','4','0'};
+	//char str1[] = {'c','s','c','e',' ','2','4','0'};
 	
 	//default
-	myString s0;
-	s0.print();
+	//myString s0;
+	//s0.print();
 	
 	//parameterized constructor
-	myString s1(str1, 8);
-
+	//myString s1(str1, 8);
+/*
 	//copy
 	myString s2(s1);
 	s1.print();
 	s2.print();
-
+	
 	//length
 	cout << "length1: " << s1.length() << endl;
 	cout << "length2: " << s2.length() << endl;
@@ -127,6 +127,21 @@ int main(int argc, char **argv){
 	cout << "count4 imp: " << s4.count(s2) << endl;
 	cout << "count3 ll: " << s3.count(sf4) <<endl;
 	cout << "count3 l: " << s3.count(sf3) << endl;
-	return(0);
+	*/
+	char str1[] = {'c','s','c','e',' ','2','4','0'};
 
+	myString s0;
+	myString s1(str1, 8);
+	myString s2;
+	s2 = s0 = s1;
+	s0.print();
+	s1.print();
+	s2.print();		
+	
+	s1.clear();
+	cout << (s0==s2) << endl;
+	cout << (s0!=s2) <<endl;	
+	cout << (s1==s0) <<endl;	
+	cout << (s1!=s0) <<endl;	
+	return(0);
 }
