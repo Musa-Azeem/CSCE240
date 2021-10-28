@@ -248,7 +248,9 @@ const myString & myString::operator=(const myString &rhs){
             copies elements of the str array of rhs
             returns rhs for cascading
         Input:  an instance of myString array, rhs of = operator
+            call by reference for efficiency and const to protect rhs
         Output: instance of myString array, same reference given as input 
+            return by reference for efficiency and const to protect rhs
     */
     delete [] str;
     size = rhs.length();
@@ -263,7 +265,8 @@ bool myString::operator==(const myString &rhs) const{
     Overloads == operator
         calls equal() method and returns the result
     Input:  instance of myString, rhs of == operator
-    Output: bool indicating whether or not the objects are equal (1 if equal)
+        Call by reference for efficiency, const to protect rhs
+    Output: bool indicating whether or not the objects are equal (1 if equal)  
     */
     return(equal(rhs));
 }
@@ -273,6 +276,28 @@ bool myString::operator!=(const myString &rhs) const{
     Overlaods != operator
         calls equal() method and returns the opposite of the result
     Input:  instance of myString 
+    Output: bool indicating whether or not the objects are equal (0 if equal)
     */
     return(!equal(rhs));
 }
+
+myString myString::operator+(const myString &rhs) const{
+    /*
+    Overloads + operator
+        creates a new myString object and copies this instance, then concatonates rhs after it
+        does not modify the calling object or rhs
+    Input:  instance of myString
+        passed by reference for efficiency, const to protect rhs
+    Output: instance of myString - calling myString concatonated with rhs 
+    */
+    int retSize(length()+rhs.length());
+    myString ret(retSize);    //create new myString of combined size
+    for(int i=0; i<size; i++){
+        ret.set(i, at(i));
+    }
+    for(int i=size; i<retSize; i++){
+        ret.set(i, rhs.at(i-size));
+    }
+    return(ret);
+
+} 
