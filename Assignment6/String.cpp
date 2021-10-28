@@ -1,3 +1,12 @@
+/*
+Musa Azeem
+Completed: 10/28/21 - 13:35:40
+Program defines functionality of methods of String class
+Input:  Several functions take size, index, and char[] ,or String type inputs
+Output: Several functions return char, bool, int, or String type inputs
+        print function prints to stdout
+*/
+
 #include <iostream>
 #include "String.h"
 

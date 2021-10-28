@@ -1,3 +1,11 @@
+/*
+Musa Azeem
+Completed: 10/28/21 - 13:35:40
+Program declares methods of String class
+Input:  None
+Output: None
+*/
+
 class String
 {
     private:
