@@ -138,19 +138,24 @@ int main(int argc, char **argv){
 	s1.print();
 	s2.print();		
 	
-	s1.clear();
+	//s1.clear();
 	cout << (s0==s2) << endl;
 	cout << (s0!=s2) <<endl;	
 	cout << (s1==s0) <<endl;	
 	cout << (s1!=s0) <<endl;	
 
-	myString s3;
-	s3 = s0+s2;
-	myString s4;
-	s4 = s0+s2+s3;
-	s3.print();
-	s4.print();
-	s1 = s1+s2;
-	s1.print();
+	//myString s3;
+	//s3 = s0+s2;
+	//myString s4;
+	//s4 = s0+s2+s3;
+	//s3.print();
+	//s4.print();
+	//s1 = s1+s2;
+	//s1.print();
+	//myString s5;
+	//char rem[] = {'c','s','c','e',' ','2','4','0','9'};
+	//myString remS(rem, 9);
+	//s5 = s1 - remS;
+	//s5.print();
 	return(0);
 }

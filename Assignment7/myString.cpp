@@ -230,6 +230,13 @@ bool myString::add(const myString &other){
 }
 
 void myString::remove(const int index, const int length){
+    /*
+    Removes a section of str array
+        starts removal at given index and removes a substring of the given length
+        will not remove if the given start index is invalid or if there is no substring of that length starting at that index
+    Input:  int start index, int remove length
+    Output: prints error message if index is invalid - directly modifies str array
+    */
     if(index < 0 || index >= size || index+length > size){
         cout << "Index or length out of range" << endl;
         return;
@@ -238,14 +245,14 @@ void myString::remove(const int index, const int length){
     int newSize = size-length;
     temp = new char[newSize];
     for(int i=0; i<index; i++){
-        temp[i] = at(i);            //copy elements of str until the index
+        temp[i] = at(i);                //copy elements of str until the index
     }
     for(int i=index+length; i<size; i++){   //start copying again after index+length, skipping elements to be removed
         temp[i-length] = at(i);             //add elements from str to immediate next index of temp
     }
     delete [] str;
     str = temp;
-    size = newSize;
+    size = newSize; 
 }
 
 void myString::print() const{
@@ -330,8 +337,15 @@ myString myString::operator-(const myString &rhs) const{
         passed by reference for efficiency, const to protect rhs
     Output: instance of myString - calling object with any substring equal to rhs removed 
     */
-    myString ret(size);
-    
-    
- 
-} 
+    myString ret(*this);    //copy of calling object
+    while(1){
+        //loop until there are no instances of rhs in calling object
+        int found(ret.find(rhs, 0));    //search for an instance of rhs starting at beginning of calling object
+        if(found==-1){
+            //done if no instance found
+            break;
+        }
+        ret.remove(found, rhs.length());    //remove substr matching rhs from calling object
+    }
+    return(ret);
+}
