@@ -349,3 +349,27 @@ myString myString::operator-(const myString &rhs) const{
     }
     return(ret);
 }
+
+const myString & myString::operator++(){
+    /*
+    Overloads pre increment ++ operator
+    increments the string???
+        returns calling object after it has been incremented
+    Input:  None
+    Output: instance of myString - this instance
+        returned by reference for effeciency, const to protect calling object
+    */
+    return(*this);
+}
+
+myString myString::operator++(int){
+    /*
+    Overloads post increment ++ operator
+        makes copy of the calling object before it increments it. The copy is returned
+    Input:  None
+    Output: instance of myString - copy of calling object before modifiction
+    */
+    myString ret(*this);
+    //increment
+    return(ret);
+}

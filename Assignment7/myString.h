@@ -29,8 +29,8 @@ class myString
         bool operator!=(const myString &rhs) const;
         myString operator+(const myString &rhs) const;
         myString operator-(const myString &rhs) const;
-        const myString & operator++();
-        //overload for pre increment somehow
+        const myString & operator++();      //pre increment
+        myString operator++(int);   //post increment
         char operator[](const int index);   //get
         //void operator[](const int index); overload for setting
         //>>
