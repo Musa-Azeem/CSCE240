@@ -128,10 +128,10 @@ int main(int argc, char **argv){
 	cout << "count3 ll: " << s3.count(sf4) <<endl;
 	cout << "count3 l: " << s3.count(sf3) << endl;
 	*/
-	char str1[] = {'c','s','c','e',' ','2','4','0'};
-
+	//char str1[] = {'c','s','c','e',' ','2','4','0'};
+	char str2[] = "string";
 	myString s0;
-	myString s1(str1, 8);
+	myString s1(str2, 6);
 	myString s2;
 	s2 = s0 = s1;
 	s0.print();
@@ -144,18 +144,41 @@ int main(int argc, char **argv){
 	cout << (s1==s0) <<endl;	
 	cout << (s1!=s0) <<endl;	
 
-	//myString s3;
-	//s3 = s0+s2;
-	//myString s4;
-	//s4 = s0+s2+s3;
-	//s3.print();
-	//s4.print();
-	//s1 = s1+s2;
-	//s1.print();
-	//myString s5;
-	//char rem[] = {'c','s','c','e',' ','2','4','0','9'};
-	//myString remS(rem, 9);
-	//s5 = s1 - remS;
-	//s5.print();
+	myString ing("ing", 3);
+	myString sub(s0-ing);
+	sub.print();
+	ing.print();
+	s0.print();
+
+	myString add("added", 5);
+	myString added(s1+add);
+	s1.print();
+	add.print();
+	added.print();
+	s1.set(6, 'f');
+	cout << s1.length() << endl;
+	s1.print();
+	
+	myString preinc(++s1);
+	s1.print();
+	cout << s1.length() << endl;
+	preinc.print();
+	cout << preinc.length() << endl;
+	s1.set(6, 'f');
+	s1.print();
+	preinc.set(6, 'f');
+	preinc.print();
+
+	cout << s2.length() << endl;
+	myString postinc(s2++);
+	s2.print();
+	cout << s2.length() << endl;
+	postinc.print();
+	cout << postinc.length() << endl;
+	s2.set(6, 'f');
+	s2.print();
+	postinc.set(6, 'f');	
+	postinc.print();
+
 	return(0);
 }

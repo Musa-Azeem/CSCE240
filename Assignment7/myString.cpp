@@ -353,23 +353,28 @@ myString myString::operator-(const myString &rhs) const{
 const myString & myString::operator++(){
     /*
     Overloads pre increment ++ operator
-    increments the string???
+    increments the string by adding empty char to end of array
         returns calling object after it has been incremented
     Input:  None
     Output: instance of myString - this instance
         returned by reference for effeciency, const to protect calling object
     */
+    myString blank(" ", 1);
+    add(blank);
     return(*this);
 }
 
 myString myString::operator++(int){
     /*
     Overloads post increment ++ operator
-        makes copy of the calling object before it increments it. The copy is returned
+        makes copy of the calling object before it increments it.
+        string is incremented by adding empty char to end of array
+        copy of original is retunred
     Input:  None
     Output: instance of myString - copy of calling object before modifiction
     */
     myString ret(*this);
-    //increment
+    myString blank(" ",1);
+    add(blank);
     return(ret);
 }
