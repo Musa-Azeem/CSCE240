@@ -1,5 +1,10 @@
+#include <iostream>
+using namespace std;
+
 class myString
 {
+    friend ostream & operator<<(ostream &lhs, const myString &rhs);
+    friend istream & operator>>(istream &lhs, myString &rhs);
     private:
         int size;
         char* str;
@@ -33,7 +38,4 @@ class myString
         myString operator++(int);   //post increment
         char operator[](const int index) const;   //get
         char & operator[](const int index);   //set
-        //>>
-        //<<
-
 };

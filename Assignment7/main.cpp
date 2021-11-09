@@ -192,5 +192,10 @@ int main(int argc, char **argv){
 	s1[5] = 'z';
 	s1.print();
 
+	cout << "1" << s1 << endl;
+
+	myString in(5);
+	cin >> in; 
+	cout << in <<endl;
 	return(0);
 }

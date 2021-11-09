@@ -408,3 +408,28 @@ char & myString::operator[](const int index){
     }
     return str[index];
 }
+
+ostream & operator<<(ostream &lhs, const myString &rhs){
+    /*
+    overloads ostream's stream insertion operator
+    inserts str array to ostream
+    input:  ostream and an instance of myString
+    output: modified ostream
+    */
+    for(int i(0); i<rhs.length(); i++){
+        cout << rhs[i];
+    }
+    return(lhs);
+}
+istream & operator>>(istream &lhs, myString &rhs){
+    /*
+    overloads istream's stream extraction operator
+    asks for each element of str, size must be set beforehand
+    input:  istream and instance of myString
+    output: istream
+    */
+    for(int i(0); i<rhs.length(); i++){
+        lhs >> rhs[i];
+    }
+    return(lhs);
+}
