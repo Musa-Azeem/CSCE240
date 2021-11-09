@@ -180,5 +180,17 @@ int main(int argc, char **argv){
 	postinc.set(6, 'f');	
 	postinc.print();
 
+	s1.print();
+	char r = s1[6];
+	cout << r<< endl;
+
+	s1[0] = 'r';
+	s1.print();
+	myString f("f",1);
+	s1 = s1-f;
+	s1.print();
+	s1[5] = 'z';
+	s1.print();
+
 	return(0);
 }

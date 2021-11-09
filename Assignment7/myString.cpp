@@ -76,8 +76,9 @@ char myString::at(const int index) const {
     }
     else{
         cout << "Index out of range" << endl;
-        return('0');
+        exit(1);
     }
+
 }
 
 int myString::length() const{
@@ -377,4 +378,33 @@ myString myString::operator++(int){
     myString blank(" ",1);
     add(blank);
     return(ret);
+}
+
+char myString::operator[](const int index) const{
+    /*
+    Overloads get [] operator
+    checks if index is out of bounds, if so, program terminates
+    returns the char of the str[] array at the given index
+    Input:  Index to get char at
+    Output: Char at the given index
+    */
+    if(index<0 || index>=size){
+        cout << "Index out of range" << endl;
+        exit(1);
+    }
+    return str[index];
+}
+
+char & myString::operator[](const int index){
+    /*
+    Overloads set [] operator
+    set the char in the str to the given value at the given index
+    Input:  Index to set char at
+    Output: Address of char to set
+    */
+    if(index<0 || index>=size){
+        cout << "Index out of range" << endl;
+        exit(1);
+    }
+    return str[index];
 }

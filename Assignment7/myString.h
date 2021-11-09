@@ -31,8 +31,8 @@ class myString
         myString operator-(const myString &rhs) const;
         const myString & operator++();      //pre increment
         myString operator++(int);   //post increment
-        char operator[](const int index);   //get
-        //void operator[](const int index); overload for setting
+        char operator[](const int index) const;   //get
+        char & operator[](const int index);   //set
         //>>
         //<<
 
