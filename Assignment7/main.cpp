@@ -4,198 +4,168 @@
 using namespace std;
 
 int main(int argc, char **argv){
-	//char str1[] = {'c','s','c','e',' ','2','4','0'};
-	
-	//default
-	//myString s0;
-	//s0.print();
-	
-	//parameterized constructor
-	//myString s1(str1, 8);
-/*
-	//copy
-	myString s2(s1);
-	s1.print();
-	s2.print();
-	
-	//length
-	cout << "length1: " << s1.length() << endl;
-	cout << "length2: " << s2.length() << endl;
-	
-	//clear
-	s1.clear();
-	cout << "cleared 1: " << endl;
-	s1.print();
-	s2.print();
+    myString s0;    //defualt
+    myString s1(10);    //alt constructor 1
+    myString s2("hello world", 11); //alt constructor 2
+    myString s3(s2);    //copy constructor
 
-	//empty
-	cout << "empty0: " << s0.empty() << endl;
-	cout << "empty1: " << s1.empty() << endl;
-	cout << "notempty2: " << s2.empty() << endl;
+    /*
+    //print
+    s0.print();
+    s1.print();
+    s2.print();
+    s3.print();
+    */
 
-	//at
-	cout << "invalid2: " << s2.at(10) <<endl;
-	cout << "invalid2: " << s2.at(-1) <<endl;
-	cout << "invalid2: " << s2.at(8) <<endl;
-	cout << "valid2 2: " << s2.at(2) <<endl;
-	cout << "valid2 7: " << s2.at(7) <<endl;
-	cout << "valid2 0: " << s2.at(0) <<endl;
+    //operator<<
+    cout << "s0:" << s0 << endl;
+    cout << "s1:" << s1 << endl;
+    cout << "s2:" << s2 << endl;
+    cout << "s3:" << s3 << endl;
+    cout << endl;    
+    //set
+    cout << "enter char to set s1" << endl;
+    char input;
+    cin >> input;
+    cout << "enter index to set s1" << endl;
+    int index;
+    cin >> index;
+    s1.set(index, input);
+    cout << "s1:" << s1 << endl;
+    cout << endl;
 
-	//find
-	char str3[] = {'l','o','l','o','l','o','l','o'};
-	char str4[] = {'h','e','l','l','o'};
-	myString s3(str3, 8);
-	s3.print();
-	myString s4(str4, 5);
-	s4.print();
-	char strfind1[] = {'l','o','l'};
-	myString sf1(strfind1, 3);
-	char strfind2[] = {'l','o'};
-	myString sf2(strfind2, 2);
-	char strfind3[] = {'l'};
-	myString sf3(strfind3, 1);
-	char strfind4[] = {'l','l'};
-	myString sf4(strfind4, 2);
-	char strfind5[] = {' '};
-	myString sf5(strfind5,1);
-	char strfind6[] = {'2','4','0'};
-	myString sf6(strfind6, 3);
+    //at
+    cout << "enter index to get char of s2" << endl;
+    cin >> index;
+    cout << "s2 at " <<index<< ":" << (s2.at(index)) << endl;
+    cout << endl;
+    
+    //length
+    cout << "lengths" << endl;
+    cout << (s0.length()) << endl;
+    cout << (s1.length()) << endl;
+    cout << (s2.length()) << endl;
+    cout << (s3.length()) << endl;
+    cout << endl;
 
-	cout << "find3 lol: " << s3.find(sf1, 0) << endl;
-	cout << "find3 lol 3: " << s3.find(sf1, 3) << endl;
-	cout << "find3 lo: " << s3.find(sf2,0) <<endl;
-	cout << "find3 lo 5: " << s3.find(sf2, 5) <<endl;
-	cout << "find3 lo 2: " << s3.find(sf2, 2) << endl;
-	cout << "find3 4: " << s3.find(s4,0) <<endl;
-	cout << "find4 l: " << s4.find(sf3, 0) <<endl;
-	cout << "find4 ll: " << s4.find(sf4, 0) <<endl; 
-	cout << "find4 ll 4: " << s4.find(sf4, 4) <<endl; 
-	cout << "find2 space: " << s2.find(sf5, 0) <<endl;
-	cout << "find 2 240: " << s2.find(sf6, 0) <<endl;
-	cout << "find4 imp: " << s4.find(s2, 0) <<endl;
-	cout << "find2 imp: " << s2.find(sf6, 6) <<endl;
-	cout << "find2 pos; " << s2.find(sf6, 5) <<endl;
+    //substring
+    cout << "enter start index to create substring from s2: " << endl;
+    cin >> index;
+    cout << "enter length of substring: " << endl;
+    int length;
+    cin >> length;
+    myString substr(s2.substring(index, length));
+    substr.print();
+    cout << endl;
+    
+    //clear
+    s1.clear();
+    cout << "s1 cleared: " << s1 << endl << endl;
 
-	//equal
-	s1.print();
-	s2.print();
-	s3.print();
-	s4.print();
+    //empty
+    cout << s1.empty() << endl;
 
-	myString e2(s2);
-	cout << "inequal: " << s2.equal(s0) << endl;
-	cout << "equal: " << s2.equal(e2) << endl;
-	cout << "equal == s2 e2: ";
-	if(s2==e2)
-		cout << "1"<< endl;
-	else
-		cout << "0" << endl;
-	cout << "inequal: " << s2.equal(s3) << endl;
-	cout << "inequal: ";
-	if(!(s4==s3))
-		cout << "0" << endl;
+    //find
+    cout << "enter length of string to find in s3: " << endl;
+    cin >> length;
+    myString toFind(length);
+    cout << "enter string to find in s3: " << endl;
+    cin >> toFind;
+    cout << "enter index to start search" << endl;
+    cin >> index;
+    cout << s3.find(toFind, index) << endl << endl;
 
-	//add
-	s1.print();
-	s2.print();
-	s1.add(s2);
-	cout << "s1+s2: ";
-	s1.print();
+    //count
+    cout << "enter length of string to find cout of in s3: " << endl;
+    cin >> length;
+    myString toFind2(length);
+    cout << "enter string to find count of in s3: " << endl;
+    cin >> toFind2;
+    cout << s3.count(toFind2) << endl << endl;
 
-	s3.print();
-	s4.print();
-	cout << s3.length() << endl;
-	s3.add(s4);
-	cout << "s3+s4: ";
-	s3.print();
-	cout << s3.length() <<endl;
-		
-	//print
-	cout << "prints" << endl;
-	s0.print();
-	s1.print();
-	s2.print();
-	s3.print();
-	s4.print();
+    //equal
+    cout << "equal" << endl;
+    cout << s0.equal(s1) << endl;
+    cout << s1.equal(s2) << endl;
 
-	//count
-	cout << "count2 240: " << s2.count(sf6) << endl;
-	cout << "count3 lol: " << s3.count(sf1) <<endl;
-	cout << "count3 lo: " << s3.count(sf2) <<endl;
-	cout << "count2 space: " << s2.count(sf5) <<endl;
-	cout << "count4 hello: " << s4.count(s4) <<endl;
-	cout << "count4 imp: " << s4.count(s2) << endl;
-	cout << "count3 ll: " << s3.count(sf4) <<endl;
-	cout << "count3 l: " << s3.count(sf3) << endl;
-	*/
-	//char str1[] = {'c','s','c','e',' ','2','4','0'};
-	char str2[] = "string";
-	myString s0;
-	myString s1(str2, 6);
-	myString s2;
-	s2 = s0 = s1;
-	s0.print();
-	s1.print();
-	s2.print();		
-	
-	//s1.clear();
-	cout << (s0==s2) << endl;
-	cout << (s0!=s2) <<endl;	
-	cout << (s1==s0) <<endl;	
-	cout << (s1!=s0) <<endl;	
+    //add
+    cout << "enter length of string to add to s3: " << endl;
+    cin >> length;
+    myString toAdd(length);
+    cout << "enter string to add to s3: " << endl;
+    cin >> toAdd;
+    s3.add(toAdd);
+    cout << s3 << endl << endl;
 
-	myString ing("ing", 3);
-	myString sub(s0-ing);
-	sub.print();
-	ing.print();
-	s0.print();
+    //operator=
+    cout << "operator=" << endl;
+    s0 = s1 = s2;
+    cout << "s0:" << s0 << endl;
+    cout << "s1:" << s1 << endl;
+    cout << "s2:" << s2 << endl;
+    cout << "s3:" << s3 << endl;
+    cout << endl;    
 
-	myString add("added", 5);
-	myString added(s1+add);
-	s1.print();
-	add.print();
-	added.print();
-	s1.set(6, 'f');
-	cout << s1.length() << endl;
-	s1.print();
-	
-	myString preinc(++s1);
-	s1.print();
-	cout << s1.length() << endl;
-	preinc.print();
-	cout << preinc.length() << endl;
-	s1.set(6, 'f');
-	s1.print();
-	preinc.set(6, 'f');
-	preinc.print();
+    //operator==
+    cout << "operator==" << endl;
+    cout << (s0==s1) << endl;
+    cout << (s2==s3) << endl;
+    cout << endl;
 
-	cout << s2.length() << endl;
-	myString postinc(s2++);
-	s2.print();
-	cout << s2.length() << endl;
-	postinc.print();
-	cout << postinc.length() << endl;
-	s2.set(6, 'f');
-	s2.print();
-	postinc.set(6, 'f');	
-	postinc.print();
+    //operator!=
+    cout << "operator!=" << endl;
+    cout << (s0!=s1) << endl;
+    cout << (s2!=s3) << endl;
+    cout << endl;
 
-	s1.print();
-	char r = s1[6];
-	cout << r<< endl;
+    //operator+
+    cout << "operator+" << endl;
+    myString added;
+    added = s0+s1;
+    cout << "s0:" << s0 << endl;
+    cout << "s1:" << s1 << endl;
+    cout << "added: " << added << endl << endl;
 
-	s1[0] = 'r';
-	s1.print();
-	myString f("f",1);
-	s1 = s1-f;
-	s1.print();
-	s1[5] = 'z';
-	s1.print();
+    //operator-
+    cout << "operator-" << endl;
+    cout << "enter length of string to subtract from s3: " << endl;
+    cin >> length;
+    myString toSub(length);
+    cout << "enter string to subtract from s3: " << endl;
+    cin >> toSub;
+    cout << (s3 - toSub) << endl;
+    cout << "s0:" << s0 << endl;
+    cout << "s1:" << s1 << endl << endl;
 
-	cout << "1" << s1 << endl;
+    //pre operator++
+    cout << "pre operator++" << endl;
+    cout << s0.length() << ": " << s0 << endl;
+    added = ++s0;
+    cout << added.length() << ": " << added << endl;
+    cout << s0.length() << ": " << s0 << endl << endl;
+    
+    //post operator++
+    cout << "post operator++" << endl;
+    cout << s0.length() << ": " << s0 << endl;
+    added = s0++;
+    cout << added.length() << ": " << added << endl;
+    cout << s0.length() << ": " << s0 << endl << endl;
 
-	myString in(5);
-	cin >> in; 
-	cout << in <<endl;
-	return(0);
+    //set []
+    cout << "set operator[]" << endl;
+    cout << "enter index to set value of s1" << endl;
+    cin >> index;
+    cout << "enter char to set" << endl;
+    cin >> input;
+    s1[index] = input;
+    cout << s1 << endl << endl;
+
+    //set []
+    cout << "get operator[]" << endl;
+    cout << "enter index to get value of s1" << endl;
+    cin >> index;
+    cout << s1[index] << endl << endl;
+
+
+
 }

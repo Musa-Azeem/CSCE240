@@ -14,12 +14,15 @@ myString::myString(){
 }
 myString::myString(const int _size){
     /*
-    Constructor - create char array of certain size
+    Constructor - create char array of certain size, each element is an empty space
     Input:  Size of string
     Output: None
     */
     size = _size;
     str = new char[size];
+    for(int i(0); i<size; i++){
+        set(i, ' ');
+    }
 }
 myString::myString(const char _str[], const int _size){
     /*
@@ -69,7 +72,7 @@ char myString::at(const int index) const {
     /*
     Returns the value of the str array at a given index. Will end program if index is out of range
     Input:  Index to get value at
-    Output: Returns char value - prints error message returns '0' if out of range
+    Output: Returns char value - prints error message and exits if out of range
     */
     if(index<size && index>=0){
         return(str[index]);
