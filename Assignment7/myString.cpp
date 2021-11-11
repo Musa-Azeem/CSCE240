@@ -311,7 +311,7 @@ bool myString::operator!=(const myString &rhs) const{
     return(!equal(rhs));
 }
 
-myString myString::operator+(const myString &rhs) const{
+const myString myString::operator+(const myString &rhs) const{
     /*
     Overloads + operator
         creates a new myString object and copies this instance, then concatonates rhs after it
@@ -331,7 +331,7 @@ myString myString::operator+(const myString &rhs) const{
     return(ret);
 }
 
-myString myString::operator-(const myString &rhs) const{
+const myString myString::operator-(const myString &rhs) const{
     /*
     Overloads - operator
         creates a new myString object and copies this instance,
@@ -368,7 +368,7 @@ const myString & myString::operator++(){
     return(*this);
 }
 
-myString myString::operator++(int){
+const myString myString::operator++(int){
     /*
     Overloads post increment ++ operator
         makes copy of the calling object before it increments it.

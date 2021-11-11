@@ -32,10 +32,10 @@ class myString
         const myString & operator=(const myString &rhs);
         bool operator==(const myString &rhs) const;
         bool operator!=(const myString &rhs) const;
-        myString operator+(const myString &rhs) const;
-        myString operator-(const myString &rhs) const;
+        const myString operator+(const myString &rhs) const;
+        const myString operator-(const myString &rhs) const;
         const myString & operator++();      //pre increment
-        myString operator++(int);   //post increment
+        const myString operator++(int);   //post increment
         char operator[](const int index) const;   //get
         char & operator[](const int index);   //set
 };
