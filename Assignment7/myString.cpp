@@ -66,6 +66,7 @@ void myString::set(const int index, const char val){
     }
     else{
         cout << "Index out of range, value not set" << endl;
+        exit(1);
     }
 }
 char myString::at(const int index) const {
@@ -243,7 +244,7 @@ void myString::remove(const int index, const int length){
     */
     if(index < 0 || index >= size || index+length > size){
         cout << "Index or length out of range" << endl;
-        return;
+        exit(1);
     }
     char *temp;
     int newSize = size-length;
