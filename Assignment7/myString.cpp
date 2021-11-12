@@ -1,3 +1,10 @@
+/*
+Musa Azeem
+Completed 11/11/2021 - 17:03:27
+This program defines functionality of the myString object
+Inputs: Several functions require input from main and/or stdin
+Ouput:  Several functions return data or print data to stdout
+*/
 #include <iostream>
 #include "myString.h"
 
@@ -38,9 +45,10 @@ myString::myString(const char _str[], const int _size){
 }
 myString::myString(const myString &rhs){
     /*
-    Copy constructor - copies charr array of rhs into this instance of object
+    Copy constructor - copies char array of rhs into this instance of object
+    Does not modify rhs
     Input:  Another instance of myString class
-    Output: None - sets str array of this instance
+    Output: None
     */
     size = rhs.length();
     str = new char[size];
@@ -57,21 +65,23 @@ myString::~myString(){
 }
 void myString::set(const int index, const char val){
     /*
-    set value of str array at a given index. Will not set if index is out of range
+    set value of str array at a given index. Terminates program if index is out of range
+    Directly modifies str array
     Input:  index to set and value and value to set
-    Output: Prints error message if index is out of range - modifies str array
+    Output: Prints error message if index is out of range
     */
     if(index<size && index>=0){
         str[index]=val;
     }
     else{
-        cout << "Index out of range, value not set" << endl;
+        cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
 }
 char myString::at(const int index) const {
     /*
-    Returns the value of the str array at a given index. Will end program if index is out of range
+    Returns the value of the str array at a given index. Terminates program if index is out of range
+    Does not modify object
     Input:  Index to get value at
     Output: Returns char value - prints error message and exits if out of range
     */
@@ -79,7 +89,7 @@ char myString::at(const int index) const {
         return(str[index]);
     }
     else{
-        cout << "Index out of range" << endl;
+        cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
 
@@ -87,22 +97,23 @@ char myString::at(const int index) const {
 
 int myString::length() const{
     /*
-    returns size of str array
+    returns size of str array - does not modify object
     Input:  None
     Output: int, size of array
     */
    return(size);
 }
 
-myString myString::substring(const int startIndex, const int length) const {
+const myString myString::substring(const int startIndex, const int length) const {
     /*
-    returns a sub string of str
-    Input:  index to start substring and length of the returned sub string
+    returns a sub string of str of length "length", starting from startIndex
+        Does not modify object
+    Input:  index to start substring and length of the sub string
     Output: sub string of type myString
     */
    if(startIndex<0 || startIndex>=size || startIndex+length > size){
        //check that startIndex is valid and that length will not go out of bounds
-       cout << "Index or length out of range" << endl;
+       cout << "Index or length out of range: exit status 1" << endl;
        exit(1);
    }
    char ret[length];
@@ -121,7 +132,7 @@ void myString::clear(){
         deallocates memory str currently points to, and allocates memory of an empty array instead
         sets size to 0
     Input:  None
-    Output: None - modifies str array
+    Output: None
     */
     delete [] str;
     size = 0;
@@ -131,6 +142,7 @@ void myString::clear(){
 bool myString::empty() const{
     /*
     Returns 1 if the str array is empty and returns 0 if not
+    Does not modify object
     Input:  None
     Output: boolean signifying whether or not the str array is empty
     */
@@ -145,6 +157,7 @@ int myString::find(const myString &substr, const int startIndex) const{
         it then returns the start index of this sub string of str
         If the sub string is not equal to substr, the next char in the str array is looked at
         If substr is not found in str, -1 is returned
+    Does not modify calling object or object passed as argument
     Input:  A myString object and an integer index to start search from
     Output: Index that substr was found at - returns -1 if not found
     */
@@ -168,11 +181,12 @@ int myString::find(const myString &substr, const int startIndex) const{
 
 int myString::count(const myString &substr) const{
     /*
-    Finds how many times the substr occurs - repeated substr overlapping another instance of substr are counted
+    Finds how many times the substr occurs - repeated substr overlapping another occurance of substr are counted
         calls find function, starting from index 0 - if the function does not return -1, an instance of the substr was found
         if so, count is incremented to indicate another appearence of the substr
-        index is also incremented, so that the next iteration the search starts from the next index up
+        index is then incremented, to start next search from the next index up
         if find returns -1, no more substr occur, and current count is returned
+    Does not modify calling object or object passed as argument
     Input:  a myString object
     Output: count of number of times substr appears
     */
@@ -193,6 +207,7 @@ int myString::count(const myString &substr) const{
 bool myString::equal(const myString &rhs) const{
     /*
     returns 1 if two myString objects are equal and returns 0 if not
+    Does not modify calling object or object passed as argument
     input:  instance of myString type
     Output: boolean signifying whether or not the myString objects are equal
     */
@@ -209,12 +224,13 @@ bool myString::equal(const myString &rhs) const{
 
 bool myString::add(const myString &other){
     /*
-    concatonates two myString objects
+    concatonates myString passed as argument to the end of calling myString object
         creates new temp char pointer array of the combined size of two arrays
         copies content from first myString and then the other onto temp
-        sets this classes str array to point at the new combined array
+        sets calling objects's str array to point at the new combined array
+    Does not modify object passed as argument
     Input:  myString object
-    Output: None - modifies str array
+    Output: None
     */
     int otherLen(other.length());
     int newSize = size+otherLen;
@@ -238,12 +254,13 @@ void myString::remove(const int index, const int length){
     /*
     Removes a section of str array
         starts removal at given index and removes a substring of the given length
-        will not remove if the given start index is invalid or if there is no substring of that length starting at that index
+        Terminates program if the given start index is invalid or if there is no possible substring of that length starting at that index
+
     Input:  int start index, int remove length
-    Output: prints error message if index is invalid - directly modifies str array
+    Output: prints error message if index is invalid
     */
     if(index < 0 || index >= size || index+length > size){
-        cout << "Index or length out of range" << endl;
+        cout << "Index or length out of range: exit status 1" << endl;
         exit(1);
     }
     char *temp;
@@ -262,7 +279,8 @@ void myString::remove(const int index, const int length){
 
 void myString::print() const{
     /*
-    prints contents of str array
+    prints contents of str array to stdout
+    Does not modify object
     Input:  None
     Output: prints contents of str array to stdout
     */
@@ -278,10 +296,9 @@ const myString & myString::operator=(const myString &rhs){
             updates size to be size of rhs and creates str as new array of new size
             copies elements of the str array of rhs
             returns rhs for cascading
+        Does not modify rhs object
         Input:  an instance of myString array, rhs of = operator
-            call by reference for efficiency and const to protect rhs
-        Output: instance of myString array, same reference given as input 
-            return by reference for efficiency and const to protect rhs
+        Output: instance of myString array, same reference given as input
     */
     delete [] str;
     size = rhs.length();
@@ -294,10 +311,10 @@ const myString & myString::operator=(const myString &rhs){
 bool myString::operator==(const myString &rhs) const{
     /*
     Overloads == operator
-        calls equal() method and returns the result
+        calls equal() method and returns the result (1 if objects are equal, 0 if not)
+    Does not modify calling object or rhs
     Input:  instance of myString, rhs of == operator
-        Call by reference for efficiency, const to protect rhs
-    Output: bool indicating whether or not the objects are equal (1 if equal)  
+    Output: bool indicating whether or not the objects are equal
     */
     return(equal(rhs));
 }
@@ -305,9 +322,10 @@ bool myString::operator==(const myString &rhs) const{
 bool myString::operator!=(const myString &rhs) const{
     /*
     Overlaods != operator
-        calls equal() method and returns the opposite of the result
+        calls equal() method and returns the opposite of the result (0 if objects are equal, 1 if not)
+    Does not modify calling object or rhs
     Input:  instance of myString 
-    Output: bool indicating whether or not the objects are equal (0 if equal)
+    Output: bool indicating whether or not the objects are equal 
     */
     return(!equal(rhs));
 }
@@ -315,10 +333,10 @@ bool myString::operator!=(const myString &rhs) const{
 const myString myString::operator+(const myString &rhs) const{
     /*
     Overloads + operator
-        creates a new myString object and copies this instance, then concatonates rhs after it
-        does not modify the calling object or rhs
+        Creates a new myString object and copies this instance, then concatonates rhs after it
+        Returns new object
+    Does not modify the calling object or rhs
     Input:  instance of myString
-        passed by reference for efficiency, const to protect rhs
     Output: instance of myString - calling object concatonated with rhs 
     */
     int retSize(length()+rhs.length());
@@ -336,10 +354,9 @@ const myString myString::operator-(const myString &rhs) const{
     /*
     Overloads - operator
         creates a new myString object and copies this instance,
-        it then removes any instance of rhs in calling object 
-        does not modify the calling object or rhs
+        it then removes any instance of rhs in calling object - calls find function and removes substring if found
+    Does not modify the calling object or rhs
     Input:  instance of myString
-        passed by reference for efficiency, const to protect rhs
     Output: instance of myString - calling object with any substring equal to rhs removed 
     */
     myString ret(*this);    //copy of calling object
@@ -362,7 +379,6 @@ const myString & myString::operator++(){
         returns calling object after it has been incremented
     Input:  None
     Output: instance of myString - this instance
-        returned by reference for effeciency, const to protect calling object
     */
     myString blank(" ", 1);
     add(blank);
@@ -387,13 +403,14 @@ const myString myString::operator++(int){
 char myString::operator[](const int index) const{
     /*
     Overloads get [] operator
-    checks if index is out of bounds, if so, program terminates
-    returns the char of the str[] array at the given index
+        Returns the char of the str[] array at the given index
+        Checks if index is out of bounds - if so, program terminates
+    Does not modify object
     Input:  Index to get char at
     Output: Char at the given index
     */
     if(index<0 || index>=size){
-        cout << "Index out of range" << endl;
+        cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
     return str[index];
@@ -402,12 +419,13 @@ char myString::operator[](const int index) const{
 char & myString::operator[](const int index){
     /*
     Overloads set [] operator
-    set the char in the str to the given value at the given index
+        Returns address of char at the given index to be set by assignment
+        Checks if index is out of bounds - if so, program terminates
     Input:  Index to set char at
     Output: Address of char to set
     */
     if(index<0 || index>=size){
-        cout << "Index out of range" << endl;
+        cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
     return str[index];
@@ -415,10 +433,12 @@ char & myString::operator[](const int index){
 
 ostream & operator<<(ostream &lhs, const myString &rhs){
     /*
-    overloads ostream's stream insertion operator
-    inserts str array to ostream
-    input:  ostream and an instance of myString
-    output: modified ostream
+    Friend function: overloads ostream's stream insertion operator
+        prints str array to stdout through ostream
+    Does not modify rhs
+    input:  an instance of myString (and ostream)
+    output: modified ostream for cascading
+        object's data will be printed to stdout
     */
     for(int i(0); i<rhs.length(); i++){
         cout << rhs[i];
@@ -428,9 +448,11 @@ ostream & operator<<(ostream &lhs, const myString &rhs){
 istream & operator>>(istream &lhs, myString &rhs){
     /*
     overloads istream's stream extraction operator
-    asks for each element of str, size must be set beforehand
-    input:  istream and instance of myString
-    output: istream
+        object must have previously been defined with a size n
+        function recieves n elements from stdin
+    input:  instance of myString (and istream)
+        myString object of size n will recieve n elements from stdin
+    output: istream for cascading
     */
     for(int i(0); i<rhs.length(); i++){
         lhs >> rhs[i];
