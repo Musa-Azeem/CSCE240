@@ -29,6 +29,8 @@ class myArrayList{
         void set(const int index, const T value);
         T get(const int index) const;
         //int find(const T toFind[], const int index);
+        
+        void print() const;
 
     private:
         T* data;

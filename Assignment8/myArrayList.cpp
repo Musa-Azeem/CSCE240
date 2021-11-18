@@ -200,9 +200,31 @@ const myArrayList<T> myArrayList<T>::operator-(const myArrayList<T> &rhs) const{
     if(rhs.length() > length()){
         return(ret);
     }
+
     T start = rhs[0];
-    for(int i(0); i<length(); i++){
+    for(int index(0); index<ret.length()-rhs.length(); index++){
+        if(ret.get(index)==start){
+            bool rem(1);
+            for(int i(index); i<index+rhs.length(); i++){
+                if(ret.get(i)!=rhs[i-index])
+                    rem=0;
+            }
+            if(rem){
+                T *temp = new T[ret.length()-rhs.length()];
+                for(int i(0); i<index; i++)
+                    temp[i] = ret.get(i);
+                for(int i(index+rhs.length()); i<ret.length(); i++)
+                    temp[i-rhs.length()] = ret.get(i);
+
+                delete [] ret.data;
+                ret.data = temp;
+                ret.size = ret.length()-rhs.length();
+
+                index--;
+            }
+        }
     }
+    return(ret);
 }
 
 template <class T>
@@ -232,4 +254,12 @@ T & myArrayList<T>::operator[](const int index){
         exit(1);
     }
     return(get(index));
+}
+
+template <class T>
+void myArrayList<T>::print() const{
+    for(int i(0); i<length(); i++){
+        cout << get(i) << " ";
+    }
+    cout << endl;
 }
