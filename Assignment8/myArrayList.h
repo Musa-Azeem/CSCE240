@@ -23,7 +23,7 @@ class myArrayList{
         bool operator!=(const myArrayList<T> &rhs) const;
         const myArrayList<T> operator+(const myArrayList<T> &rhs) const;   //try to make return by reference
         const myArrayList<T> operator-(const myArrayList<T> &rhs) const;
-        T operator[](const int index) const;    //get
+        const T operator[](const int index) const;    //get
         T & operator[](const int index);        //set
 
         void set(const int index, const T value);
