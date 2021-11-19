@@ -65,6 +65,11 @@ void myArrayList<T>::init(const T _data[], const int _size){
             set(i, _data[i]);
         }
     }
+    else{
+        for(int i(0); i<size; i++){
+            data[i] = {};
+        }
+    }
 }
 
 template <class T>
