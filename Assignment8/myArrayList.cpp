@@ -17,7 +17,7 @@ myArrayList<T>::myArrayList(){
 template <class T>
 myArrayList<T>::myArrayList(const int _size){
     /*
-    Alternate Constructor - initilizes object with null array and given size
+    Alternate Constructor - initilizes object with given size
     Input:  Size to create object
     Output: None
     */
@@ -48,14 +48,19 @@ template <class T>
 void myArrayList<T>::init(const T _data[], const int _size){
     /*
     Initializes data and size with values given
+        if size is zero, data is set to null
+        if size is nonzero but _data is null, data array is created but no values are assigned
+        if size if nonzero and _data has values, data array is created of that size and set to values
     Input:  array and the size of the array
     Output: None
     */
     size = _size;
-    if(_data==NULL){
-       data = NULL;
+    if(size == 0){
+        data = NULL;
+        return;
     }
-    else{
+    data = new T[size];
+    if(_data!=NULL){
         for(int i(0); i<size; i++){
             set(i, _data[i]);
         }
@@ -98,8 +103,7 @@ T myArrayList<T>::get(const int index) const{
         cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
-
-    return data[index];
+    return(data[index]);
 }
 
 template <class T>
@@ -146,6 +150,7 @@ const myArrayList<T> & myArrayList<T>::operator=(const myArrayList<T> &rhs){
     delete [] data;
     size = rhs.length();
     init(rhs.data, size);
+    return(rhs);
 }
 
 template <class T>
@@ -187,6 +192,7 @@ const myArrayList<T> myArrayList<T>::operator+(const myArrayList<T> &rhs) const{
     for(int i(length()); i<length()+rhs.length(); i++){
         ret[i] = rhs[i-length()];
     }
+    return(ret);
 }
 
 template <class T>
@@ -215,7 +221,7 @@ const myArrayList<T> myArrayList<T>::operator-(const myArrayList<T> &rhs) const{
                     temp[i] = ret.get(i);
                 for(int i(index+rhs.length()); i<ret.length(); i++)
                     temp[i-rhs.length()] = ret.get(i);
-
+                
                 delete [] ret.data;
                 ret.data = temp;
                 ret.size = ret.length()-rhs.length();
@@ -228,7 +234,7 @@ const myArrayList<T> myArrayList<T>::operator-(const myArrayList<T> &rhs) const{
 }
 
 template <class T>
-const T myArrayList<T>::operator[](const int index) const{
+T myArrayList<T>::operator[](const int index) const{
     /*
     Overlaods get [] operator - returns the value of data array at given index
     Input:  Index to get value at
@@ -238,7 +244,7 @@ const T myArrayList<T>::operator[](const int index) const{
         cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
-    return(get(index));
+    return(data[index]);
 }
 
 template <class T>
@@ -253,8 +259,39 @@ T & myArrayList<T>::operator[](const int index){
         cout << "Index out of range: exit status 1" << endl;
         exit(1);
     }
-    return(get(index));
+    return(data[index]);
 }
+
+template <class U>
+ostream & operator<<(ostream &lhs, const myArrayList<U> &rhs){
+    /*
+    Overloads the << operator - prints contents of rhs data to stdout
+    Input:  instance ostream and instance of myArrayList to print
+    Output: Modified ostream - prints data to stdout
+    */
+    if(rhs.isEmpty())
+        return(lhs);
+    for(int i(0); i<rhs.length(); i++){
+        lhs << rhs[i] << " ";
+    }
+    return(lhs);
+}
+
+template <class U>
+istream & operator>>(istream &lhs, myArrayList<U> &rhs){
+    /*
+    Overloads >> operator - takes n inputs for rhs of size n, setting each value in rhs data
+        size of rhs must be previously set
+    Input:  instance of istream and instance of myArrayList to set values of
+    Output: Modified istream
+    */
+    for(int i(0); i<rhs.length(); i++){
+        int inp;
+        lhs >> rhs[i];
+    }
+    return(lhs);
+}
+
 
 template <class T>
 void myArrayList<T>::print() const{
