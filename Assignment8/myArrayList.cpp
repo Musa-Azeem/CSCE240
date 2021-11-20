@@ -67,7 +67,7 @@ void myArrayList<T>::init(const T _data[], const int _size){
     }
     else{
         for(int i(0); i<size; i++){
-            data[i] = {};
+            data[i] = {};   //works on c++ 11
         }
     }
 }
