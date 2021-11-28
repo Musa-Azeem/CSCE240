@@ -223,25 +223,30 @@ const myArray<T> myArray<T>::operator-(const myArray<T> &rhs) const{
     }
 
     T start = rhs[0];
-    for(int index(0); index<ret.length()-rhs.length(); index++){
-        if(ret.get(index)==start){
+    for(int index(0); index<=ret.length()-rhs.length(); index++){
+        cout << "on loop index: " <<index << ": " << ret << endl;
+        if(ret[index]==start){
             bool rem(1);
             for(int i(index); i<index+rhs.length(); i++){
-                if(ret.get(i)!=rhs[i-index])
+                if(ret[i]!=rhs[i-index])
                     rem=0;
             }
             if(rem){
+                cout << "on remove loop index: " <<index << ": " << ret << endl;
                 T *temp = new T[ret.length()-rhs.length()];
                 for(int i(0); i<index; i++)
-                    temp[i] = ret.get(i);
+                    temp[i] = ret[i];
                 for(int i(index+rhs.length()); i<ret.length(); i++)
-                    temp[i-rhs.length()] = ret.get(i);
+                    temp[i-rhs.length()] = ret[i];
                 
                 delete [] ret.data;
                 ret.data = temp;
                 ret.size = ret.length()-rhs.length();
 
                 index--;
+                cout << "after remove on index: " << index<< ": ";
+                cout << ret << endl; 
+                cout << "ret length: " << ret.length() << endl;
             }
         }
     }
