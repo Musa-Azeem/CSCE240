@@ -1,14 +1,14 @@
 #include <iostream>
-#include "myArray.cpp"
+#include "myArrayList.cpp"
 
 using namespace std;
 
 int main()
 {
-    myArray<char> mS1;
+    myArrayList<char> mS1;
 	char testString[] = "Test String";
-	myArray<char> mS2(11, testString);
-	myArray<char> mS3(mS2);
+	myArrayList<char> mS2(11, testString);
+	myArrayList<char> mS3(mS2);
 
 	cout << "Test of constructors 1+1+1 and print 1. " << endl;
 	cout << mS1 << endl;

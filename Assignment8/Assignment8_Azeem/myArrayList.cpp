@@ -1,11 +1,18 @@
-#ifndef MYARRAY_H
-#include "myArray.h"
+/*
+Written by Musa Azeem
+Completed:  11/28/21 - 15:44:34
+Program defines functionality for the myArrayList class
+Input:  Several functions require input from main and/or stdin
+Ouput:  Several functions return values to main or print to stdout
+*/
+#ifndef myArrayList_H
+#include "myArrayList.h"
 #endif
 
 using namespace std;
 
 template <class T>
-myArray<T>::myArray(){
+myArrayList<T>::myArrayList(){
     /*
     Default Constructor - initilizes object with null array and size 0
     Input:  None
@@ -15,7 +22,7 @@ myArray<T>::myArray(){
 }
 
 template <class T>
-myArray<T>::myArray(const int _size){
+myArrayList<T>::myArrayList(const int _size){
     /*
     Alternate Constructor - initilizes object with given size
     Input:  Size to create object
@@ -25,7 +32,7 @@ myArray<T>::myArray(const int _size){
 }
 
 template <class T>
-myArray<T>::myArray(const T _data[], const int _size){
+myArrayList<T>::myArrayList(const T _data[], const int _size){
     /*
     Alternate Constructor - initilizes object with given array and size
     Input:  Array of data and size of array
@@ -35,7 +42,7 @@ myArray<T>::myArray(const T _data[], const int _size){
 }
 
 template <class T>
-myArray<T>::myArray(const int _size, const T _data[]){
+myArrayList<T>::myArrayList(const int _size, const T _data[]){
     /*
     Alternate Constructor - initilizes object with given array and size
     Input:  size of array and Array of data
@@ -45,17 +52,17 @@ myArray<T>::myArray(const int _size, const T _data[]){
 }
 
 template <class T>
-myArray<T>::myArray(const myArray<T> &rhs){
+myArrayList<T>::myArrayList(const myArrayList<T> &rhs){
     /*
     Copy Constructor - initilizes object using data and size of another instance
-    Input:  Instance of myArray object
+    Input:  Instance of myArrayList object
     Output: None
     */
     init(rhs.data, rhs.length());
 }
 
 template <class T>
-void myArray<T>::init(const T _data[], const int _size){
+void myArrayList<T>::init(const T _data[], const int _size){
     /*
     Initializes data and size with values given
         if size is zero, data is set to null
@@ -83,7 +90,7 @@ void myArray<T>::init(const T _data[], const int _size){
 }
 
 template <class T>
-myArray<T>::~myArray(){
+myArrayList<T>::~myArrayList(){
     /*
     Deconstructor - deallocates memory of data
     Input:  None
@@ -93,7 +100,7 @@ myArray<T>::~myArray(){
 }
 
 template <class T>
-void myArray<T>::set(const int index, const T value){
+void myArrayList<T>::set(const int index, const T value){
     /*
     Sets data array to given value at given index
     Modifies data array
@@ -108,7 +115,7 @@ void myArray<T>::set(const int index, const T value){
 }
 
 template <class T>
-T myArray<T>::get(const int index) const{
+T myArrayList<T>::get(const int index) const{
     /*
     Returns the value of data array at given index
     Input:  int Index
@@ -122,7 +129,7 @@ T myArray<T>::get(const int index) const{
 }
 
 template <class T>
-int myArray<T>::length() const{
+int myArrayList<T>::length() const{
     /*
     Returns size variable, the length of the data array
     Input:  None
@@ -132,7 +139,7 @@ int myArray<T>::length() const{
 }
 
 template <class T>
-void myArray<T>::clear(){
+void myArrayList<T>::clear(){
     /*
     Clears data array and sets size to 0
     Modifies data array
@@ -144,7 +151,7 @@ void myArray<T>::clear(){
 }
 
 template <class T>
-bool myArray<T>::isEmpty() const{
+bool myArrayList<T>::isEmpty() const{
     /*
     Returns true if the data array is empty - data array is NULL
     Modifies data array
@@ -155,12 +162,12 @@ bool myArray<T>::isEmpty() const{
 }
 
 template <class T>
-const myArray<T> & myArray<T>::operator=(const myArray<T> &rhs){
+const myArrayList<T> & myArrayList<T>::operator=(const myArrayList<T> &rhs){
     /*
-    Overloads assignment operator - copies size and data array of rhs of assignment operator (instance of myArray)
+    Overloads assignment operator - copies size and data array of rhs of assignment operator (instance of myArrayList)
     Returns the rhs for cascading
-    Input:  Instance of myArray to set calling object equal to
-    Output: Instance of myArray for cascading
+    Input:  Instance of myArrayList to set calling object equal to
+    Output: Instance of myArrayList for cascading
     */
     delete [] data;
     size = rhs.length();
@@ -169,10 +176,10 @@ const myArray<T> & myArray<T>::operator=(const myArray<T> &rhs){
 }
 
 template <class T>
-bool myArray<T>::operator==(const myArray<T> &rhs) const{
+bool myArrayList<T>::operator==(const myArrayList<T> &rhs) const{
     /*
     Overloads == operator - checks if two instances have equal data and size
-    Input:  instance of myArray to compare to
+    Input:  instance of myArrayList to compare to
     Ouptut: bool - 1 if equal, 0 if not
     */
     if(size != rhs.length())
@@ -184,23 +191,23 @@ bool myArray<T>::operator==(const myArray<T> &rhs) const{
     return(1);
 }
 template <class T>
-bool myArray<T>::operator!=(const myArray<T> &rhs) const{
+bool myArrayList<T>::operator!=(const myArrayList<T> &rhs) const{
     /*
     Overloads != operator - returns opposite of operator==
-    Input:  Instance of myArray to compare to
+    Input:  Instance of myArrayList to compare to
     Output: bool - 1 if not equal, 0 if equal
     */
     return(!operator==(rhs));
 }
 
 template <class T>
-const myArray<T> myArray<T>::operator+(const myArray<T> &rhs) const{
+const myArrayList<T> myArrayList<T>::operator+(const myArrayList<T> &rhs) const{
     /*
-    Overloads addition operator - returns new instance of myArray with the rhs concatonated to calling object
-    Input:  Instance of myArray to concatonate to end of calling object on new instance
-    Output: New instance of myArray
+    Overloads addition operator - returns new instance of myArrayList with the rhs concatonated to calling object
+    Input:  Instance of myArrayList to concatonate to end of calling object on new instance
+    Output: New instance of myArrayList
     */
-    myArray<T> ret(size+rhs.length());
+    myArrayList<T> ret(size+rhs.length());
     for(int i(0); i<length(); i++){
         ret[i] = get(i);
     }
@@ -211,13 +218,13 @@ const myArray<T> myArray<T>::operator+(const myArray<T> &rhs) const{
 }
 
 template <class T>
-const myArray<T> myArray<T>::operator-(const myArray<T> &rhs) const{
+const myArrayList<T> myArrayList<T>::operator-(const myArrayList<T> &rhs) const{
     /*
     Overloads subtraction operator - returns a copy of calling object with any occurance of rhs removed
-    Input:  Instance of myArray to remove from calling object
-    Ouptut: New instance of myArray
+    Input:  Instance of myArrayList to remove from calling object
+    Ouptut: New instance of myArrayList
     */
-    myArray<T> ret(*this);
+    myArrayList<T> ret(*this);
     if(rhs.length() > length()){
         return(ret);
     }
@@ -249,7 +256,7 @@ const myArray<T> myArray<T>::operator-(const myArray<T> &rhs) const{
 }
 
 template <class T>
-T myArray<T>::operator[](const int index) const{
+T myArrayList<T>::operator[](const int index) const{
     /*
     Overlaods get [] operator - returns the value of data array at given index
     Input:  Index to get value at
@@ -263,7 +270,7 @@ T myArray<T>::operator[](const int index) const{
 }
 
 template <class T>
-T & myArray<T>::operator[](const int index){
+T & myArrayList<T>::operator[](const int index){
     /*
     Overlaods set [] operator - returns referance of index of data array to be set 
     modifies data array
@@ -278,10 +285,10 @@ T & myArray<T>::operator[](const int index){
 }
 
 template <class U>
-ostream & operator<<(ostream &lhs, const myArray<U> &rhs){
+ostream & operator<<(ostream &lhs, const myArrayList<U> &rhs){
     /*
     Overloads the << operator - prints contents of rhs data to stdout
-    Input:  instance ostream and instance of myArray to print
+    Input:  instance ostream and instance of myArrayList to print
     Output: Modified ostream - prints data to stdout
     */
     if(rhs.isEmpty())
@@ -293,11 +300,11 @@ ostream & operator<<(ostream &lhs, const myArray<U> &rhs){
 }
 
 template <class U>
-istream & operator>>(istream &lhs, myArray<U> &rhs){
+istream & operator>>(istream &lhs, myArrayList<U> &rhs){
     /*
     Overloads >> operator - takes n inputs for rhs of size n, setting each value in rhs data
         size of rhs must be previously set
-    Input:  instance of istream and instance of myArray to set values of
+    Input:  instance of istream and instance of myArrayList to set values of
     Output: Modified istream
     */
     for(int i(0); i<rhs.length(); i++){
@@ -309,7 +316,7 @@ istream & operator>>(istream &lhs, myArray<U> &rhs){
 
 
 template <class T>
-void myArray<T>::print() const{
+void myArrayList<T>::print() const{
     for(int i(0); i<length(); i++){
         cout << get(i) << " ";
     }
