@@ -72,21 +72,44 @@ const double * Point::getCoord() const{
 
 bool Point::setMembership(const int _membership){
     if(_membership<=0){
-        return(0);
+        cout << "Invalid Cluster ID" << endl;
+        exit(1);
     }
     membership = _membership;
     return(1);
 }
 bool Point::setCentroidDistance(const double _centroidDistance){
     if(_centroidDistance<=0){
-        return(0);
+        cout << "Invalid Distance" << endl;
+        exit(1);
     }
     centroidDistance = _centroidDistance;
     return(1);
 }
 
+double Point::distance(const Point &other) const{
+    if(!other.getCoord()){
+        cout << "Argument Point Object data is Null" << endl;
+        exit(1);
+    }
+    if(!coord){
+        cout << "Calling Point Object data is Null" << endl;
+        exit(1);   
+    }
+    if(size != other.size){
+        cout << "Point objects are of difference dimensions" << endl;
+        exit(1);
+    }
+    int sum(0);
+    for(int i(0); i<size; i++){
+        sum += (coord[i] - other[i]) * (coord[i] - other[i]);
+    }
+    return(sum);
+}
+
 double Point::operator[](const int index) const{
     if(index < 0 || index >= size){
+        cout << "Index Out of Range" << endl;
         exit(1);
     }
     return(coord[index]);
@@ -94,6 +117,7 @@ double Point::operator[](const int index) const{
 
 double & Point::operator[](const int index){
     if(index < 0 || index >= size){
+        cout << "Index Out of Range" << endl;
         exit(1);
     }
     return(coord[index]);

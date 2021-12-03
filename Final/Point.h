@@ -7,12 +7,10 @@ class Point{
         Point();
         Point(const int numOfCoord, const double *_coord);
         Point(const int numOfCoord, const double *_coord, const int _membership);
-        Point(const int numOfCoord, const double *_coord, const int _membership, const double centroidDistance);
+        Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance);
         Point(const Point &other);
         ~Point();
-        void init(const int _size, const double *_data, const int _membership, const double centroidDistance);
-
-        double distance(const Point &other) const;
+        void init(const int _size, const double *_data, const int _membership, const double _centroidDistance);
 
         int getSize() const;
         int getMembership() const;
@@ -21,6 +19,9 @@ class Point{
 
         bool setCentroidDistance(const double _centroidDistance);
         bool setMembership(const int _membership);
+
+        double distance(const Point &other) const;
+
         double operator[](const int index) const;
         double & operator[](const int index);
     protected:
@@ -28,5 +29,4 @@ class Point{
         int size;
         int membership;
         double centroidDistance;
-
 };
