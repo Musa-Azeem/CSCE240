@@ -25,6 +25,7 @@ class Point{
 
         double operator[](const int index) const;
         double & operator[](const int index);
+        //const Point & operator=(const Point &rhs);
     protected:
         double *coord;
         int size;

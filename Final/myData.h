@@ -9,7 +9,7 @@ class myData{
     public:
         myData();
         myData(const int nobserv, const int _nvals, const double val);
-        myData(const int nobserv, const int _nvals, const double **data);
+        //myData(const int nobserv, const int _nvals, const double **_data);
         myData(const myData &other);
         ~myData();
 
@@ -31,7 +31,7 @@ class myData{
         Point **data;
         int size;
         int nvals;
-        Cluster *clusters;  //initilized by first call to kmeans (num of clusters given) - null until then
+        Cluster **clusters;  //initilized by first call to kmeans (num of clusters given) - null until then
         int nclust;
 };
 
