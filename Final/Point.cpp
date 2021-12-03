@@ -1,6 +1,4 @@
-#ifndef POINT_H
 #include "Point.h"
-#endif
 
 using namespace std;
 
@@ -124,15 +122,16 @@ double & Point::operator[](const int index){
 }
 
 std::ostream & operator<<(std::ostream &lhs, const Point &rhs){
-    lhs << "Number of Values / Coordinates: " << rhs.getSize() << endl;
     lhs << "Membership: " << rhs.getMembership() << endl;
     lhs << "Distance from Centroid: " << rhs.getCentroidDistance() << endl;
+    lhs << "Number of Values|Coordinates: " << rhs.getSize() << endl;
     if(!rhs.getCoord()){
         return(lhs);
     }
-    lhs << "Values / Coordinates: " << endl;
+    lhs << "Values|Coordinates: " << endl;
     for(int i(0); i<rhs.getSize(); i++){
         lhs << rhs[i] << " ";
     }
+    lhs << endl;
     return(lhs);
 }

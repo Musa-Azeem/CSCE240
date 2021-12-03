@@ -1,7 +1,7 @@
+/*
+#ifndef CENTROID_H
 #define CENTROID_H
-#ifndef POINT_H
 #include "Point.h"
-#endif
 
 class Centroid: public Point{
     public:
@@ -15,3 +15,6 @@ class Centroid: public Point{
     private:
         const int id;
 };
+
+#endif
+*/

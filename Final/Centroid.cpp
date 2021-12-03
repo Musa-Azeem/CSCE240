@@ -1,6 +1,5 @@
-#ifndef CENTROID_H
+/*
 #include "Centroid.h"
-#endif
 
 using namespace std;
 
@@ -17,3 +16,4 @@ void Centroid::print() const{
     cout << "ID: " << getID() << endl;
     cout << *this << endl;
 }
+*/
