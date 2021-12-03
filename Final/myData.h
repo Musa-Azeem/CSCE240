@@ -28,7 +28,7 @@ class myData{
 
         void print() const;
     private:
-        Point *data;
+        Point **data;
         int size;
         int nvals;
         Cluster *clusters;  //initilized by first call to kmeans (num of clusters given) - null until then

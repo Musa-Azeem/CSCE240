@@ -12,20 +12,22 @@ myData::myData(const int nobserv, const int _nvals, const double val=0): cluster
         valArr[i] = val;
     }
     //initialize data of object with given value
-    data = new Point[size];
+    data = new Point*[size];
     for(int i(0); i<size; i++){
-        data[i] = Point(nvals, valArr);
+        data[i] = new Point(nvals, valArr);
     }
 }
 
 myData::~myData(){
     delete [] clusters;
-    cout << "destructor" << endl;
+    for(int i(0); i<size; i++){
+        delete data[i];
+    }
     delete [] data;
 }
 
 void myData::print() const{
     for(int i(0); i<size; i++){
-        cout << data[i] << endl;
+        cout << *data[i] << endl;
     }
 }
