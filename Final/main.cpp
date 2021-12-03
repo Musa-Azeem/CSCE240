@@ -6,5 +6,9 @@ using namespace std;
 
 
 int main(int argc, char **argv){
-    
+    myData dataA(10, 3, 10);
+    myData dataB(dataA);
+    dataA.print();
+    cout << "_______________________________________" << endl;
+    dataB.print();
 }
