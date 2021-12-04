@@ -6,8 +6,7 @@ using namespace std;
 
 
 int main(int argc, char **argv){
-    myData dataA(2, 3, 10);
-    myData dataB(dataA);
+    myData dataA(20, 2, 0);
     //dataA.print();
     //cout << "_______________________________________" << endl;
     //dataB.print();
@@ -15,4 +14,5 @@ int main(int argc, char **argv){
     //cout << pointC << endl;
     cin >> dataA;
     dataA.print();
+    dataA.summary();
 }

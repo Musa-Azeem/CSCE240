@@ -1,4 +1,5 @@
 #include "myData.h"
+#include "math.h"
 
 using namespace std;
 
@@ -96,11 +97,78 @@ void myData::print() const{
     }
 }
 
+void myData::summary() const{
+    cout << "Number of points in each column: " << size << endl << endl;;
+    for(int i(0); i<nvals; i++){
+        cout << "Column " << i << endl;
+        cout << "Minimum Value: " << getMinValue(i) << endl;
+        cout << "Maximum Value: " << getMaxValue(i) << endl;
+        double mean(getMean(i));
+        cout << "Mean: " << mean << endl;
+        cout << "Standard Deviation: " << getStandDev(i, mean) << endl;
+        cout << endl;
+    }
+}
+double myData::getMinValue(const int col) const{
+    if(size==0){
+        cout << "no data" << endl;
+        exit(1);
+    }
+    double min((*data[0])[col]);    //get value at given column of first Point in data array
+    for(int i(1); i<size; i++){
+        double next((*data[i])[col]);
+        if(next<min){
+            min = next;
+        }
+    }
+    return(min);
+}
+double myData::getMaxValue(const int col) const{
+    if(size==0){
+        cout << "no data" << endl;
+        exit(1);
+    }
+    double max((*data[0])[col]);    //get value at given column of first Point in data array
+    for(int i(1); i<size; i++){
+        double next((*data[i])[col]);
+        if(next>max){
+            max = next;
+        }
+    }
+    return(max);
+}
+double myData::getMean(const int col) const{
+    if(size==0){
+        cout << "no data" << endl;
+        exit(1);
+    }
+    double sum(0);
+    for(int i(0); i<size; i++){
+        sum += (*data[i])[col];
+    }
+    return(sum/size);
+}
+double myData::getStandDev(const int col, const double mean) const{
+    if(size==0){
+        cout << "no data" << endl;
+        exit(1);
+    }
+    double sum(0);
+    for(int i(0); i<size; i++){
+        sum += pow(((*data[i])[col]-mean), 2);
+    }
+    return(sqrt(sum/size));
+}
+
 istream & operator>>(istream &lhs, myData &rhs){
     //requires number of observations (size) to be set beforehand
-    cout << "Enter " << rhs.getSize() << " observations of " << rhs.getNvals() << "values" << endl;
+    cout << "Enter " << rhs.getSize() << " observations of " << rhs.getNvals() << " values:" << endl;
     for(int i(0); i<rhs.getSize(); i++){
         lhs >> *rhs.accessObserv(i);
     }
     return(lhs);
+}
+
+bool kMeansClustering(int nclust, int maxIter, double tol){
+    
 }
