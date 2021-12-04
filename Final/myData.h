@@ -17,7 +17,6 @@ class myData{
         int getNvals() const;
         int getNclust() const;
         Point * accessObserv(const int index);
-        void setObsver(const int index, const double *vals);
         //Kmeans function()
         //cluster summary
         void summary() const;

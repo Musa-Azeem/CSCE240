@@ -13,6 +13,6 @@ int main(int argc, char **argv){
     //dataB.print();
     //Point pointC(*dataA.accessObserv(0));
     //cout << pointC << endl;
-    cin >> *dataA.accessObserv(1);
+    cin >> dataA;
     dataA.print();
 }

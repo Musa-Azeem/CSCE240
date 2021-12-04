@@ -90,11 +90,6 @@ Point * myData::accessObserv(const int index){
     return(data[index]);
 }
 
-void myData::setObsver(const int index, const double * vals){
-    delete data[index];
-    data[index] = new Point(nvals, vals);
-}
-
 void myData::print() const{
     for(int i(0); i<size; i++){
         cout << *data[i] << endl;
@@ -105,7 +100,7 @@ istream & operator>>(istream &lhs, myData &rhs){
     //requires number of observations (size) to be set beforehand
     cout << "Enter " << rhs.getSize() << " observations of " << rhs.getNvals() << "values" << endl;
     for(int i(0); i<rhs.getSize(); i++){
-        
+        lhs >> *rhs.accessObserv(i);
     }
     return(lhs);
 }
