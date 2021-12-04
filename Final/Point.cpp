@@ -4,38 +4,24 @@ using namespace std;
 
 Point::Point(){
     init(0, nullptr, -1, -1);
-    /*coord = nullptr;
-    size = 0;
-    membership = -1;
-    distanceFromCentroid = -1;*/
+}
+Point::Point(const int numOfCoord, const double val): size(numOfCoord), membership(-1), centroidDistance(-1){
+    coord = new double[size];
+    for(int i(0); i<size; i++){
+        coord[i] = val;
+    }
 }
 Point::Point(const int numOfCoord, const double *_coord){
     init(numOfCoord, _coord, -1, -1);
-    /*size = numOfCoord;
-    coord = new double[size];
-    for(int i(0); i<size; i++){
-        coord[i] = _coord[i];
-    }*/
 }
 Point::Point(const int numOfCoord, const double *_coord, const int _membership){
     init(numOfCoord, _coord, _membership, -1);
-    /*size = numOfCoord;
-    coord = new double[size];
-    for(int i(0); i<size; i++){
-        coord[i] = _coord[i];
-    }
-    membership = _membership;*/
 }
 Point::Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance){
     init(numOfCoord, _coord, _membership, _centroidDistance);
 }
 Point::Point(const Point &other){
     init(other.getSize(), other.coord, other.getMembership(), other.getCentroidDistance());
-    /*size = other.getSize();
-    coord = new double[size];
-    for(int i(0); i<size; i++){
-        coord[i] = other[i];
-    }*/
 }
 Point::~Point(){
     delete [] coord;
@@ -120,8 +106,20 @@ double & Point::operator[](const int index){
     }
     return(coord[index]);
 }
+bool Point::operator==(const Point &rhs) const{
+    //only checks values - not membership
+    if(size != rhs.getSize()){
+        return(0);
+    }
+    for(int i(0); i<size; i++){
+        if(coord[i] != rhs[i]){
+            return(0);
+        }    
+    }
+    return(1);
+}
 
-std::ostream & operator<<(std::ostream &lhs, const Point &rhs){
+ostream & operator<<(ostream &lhs, const Point &rhs){
     lhs << "Membership: " << rhs.getMembership() << endl;
     lhs << "Distance from Centroid: " << rhs.getCentroidDistance() << endl;
     lhs << "Number of Values|Coordinates: " << rhs.getSize() << endl;
@@ -133,5 +131,11 @@ std::ostream & operator<<(std::ostream &lhs, const Point &rhs){
         lhs << rhs[i] << " ";
     }
     lhs << endl;
+    return(lhs);
+}
+istream & operator>>(istream &lhs, Point &rhs){
+    for(int i(0); i<rhs.getSize(); i++){
+        lhs >> rhs[i];
+    }
     return(lhs);
 }

@@ -4,8 +4,10 @@
 
 class Point{
     friend std::ostream & operator<<(std::ostream &lhs, const Point &rhs);
+    friend std::istream & operator>>(std::istream &lhs, Point &rhs);
     public:
         Point();
+        Point(const int numOfCoord, const double val);
         Point(const int numOfCoord, const double *_coord);
         Point(const int numOfCoord, const double *_coord, const int _membership);
         Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance);
@@ -25,6 +27,7 @@ class Point{
 
         double operator[](const int index) const;
         double & operator[](const int index);
+        bool operator==(const Point &rhs) const;
         //const Point & operator=(const Point &rhs);
     protected:
         double *coord;

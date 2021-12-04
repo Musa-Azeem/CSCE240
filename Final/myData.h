@@ -5,7 +5,7 @@
 #include <iostream>
 
 class myData{
-    friend std::istream operator>>(const std::istream &lhs, myData &rhs);
+    friend std::istream & operator>>(std::istream &lhs, myData &rhs);  //continute here
     public:
         myData();
         myData(const int nobserv, const int _nvals, const double val);
@@ -16,12 +16,13 @@ class myData{
         int getSize() const;
         int getNvals() const;
         int getNclust() const;
-
+        Point * accessObserv(const int index);
+        void setObsver(const int index, const double *vals);
         //Kmeans function()
         //cluster summary
         void summary() const;
 
-        const myData & operator=(const myData &other);
+        const myData & operator=(const myData &other); 
         bool operator==(const myData &other) const;
         bool operator!=(const myData &other) const;
         const myData operator+(const myData &other) const;
