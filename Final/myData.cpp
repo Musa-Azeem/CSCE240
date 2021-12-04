@@ -5,7 +5,7 @@ using namespace std;
 //SETTERS for size
 
 myData::myData(): data(nullptr), size(0), nvals(0), clusters(nullptr), nclust(0) {}
-myData::myData(const int nobserv, const int _nvals, const double val=0): size(nobserv), nvals(_nvals), clusters(nullptr), nclust(0){
+myData::myData(const long int nobserv, const int _nvals, const double val=0): size(nobserv), nvals(_nvals), clusters(nullptr), nclust(0){
     //initilize array to be used to populate object (from given value)
     /*double valArr[nvals];
     for(int i(0); i<nvals; i++){
@@ -17,7 +17,7 @@ myData::myData(const int nobserv, const int _nvals, const double val=0): size(no
         data[i] = new Point(nvals, val);
     }
 }
-/*myData::myData(const int nobserv, const int _nvals, const double **_data): clusters(nullptr), nclust(0){
+/*myData::myData(const long int nobserv, const int _nvals, const double **_data): clusters(nullptr), nclust(0){
     size = nobserv;
     nvals = _nvals;
     data = new Point*[size];
@@ -82,7 +82,7 @@ const myData & myData::operator=(const myData &rhs){
     return(rhs); 
 }
 
-int myData::getSize() const{return(size);}
+long int myData::getSize() const{return(size);}
 int myData::getNvals() const{return(nvals);}
 int myData::getNclust() const{return(nclust);}
 
