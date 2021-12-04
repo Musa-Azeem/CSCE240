@@ -39,9 +39,10 @@ myData::myData(const myData &other){
     }
     nclust = other.nclust;
     if(nclust != 0){
-        clusters = new Cluster*[nclust];
+        clusters = new Clust[nclust];
         for(int i(0); i<nclust; i++){
-            clusters[i] = new Cluster(*other.clusters[i]);
+            clusters[i].centroid = Point(other.clusters[i].centroid);
+            clusters[i].nmembers = other.clusters[i].nmembers;
         }
     }
     else{
@@ -49,9 +50,6 @@ myData::myData(const myData &other){
     }
 }
 myData::~myData(){
-    for(int i(0); i<nclust; i++){
-        delete clusters[i];
-    }
     delete [] clusters;
     for(int i(0); i<size; i++){
         delete data[i];
@@ -72,9 +70,10 @@ const myData & myData::operator=(const myData &rhs){
     }
     nclust = rhs.nclust;
     if(nclust != 0){
-        clusters = new Cluster*[nclust];
+        clusters = new Clust[nclust];
         for(int i(0); i<nclust; i++){
-            clusters[i] = new Cluster(*rhs.clusters[i]);
+            clusters[i].centroid = Point(rhs.clusters[i].centroid);
+            clusters[i].nmembers = rhs.clusters[i].nmembers;
         }
     }
     else{
@@ -169,6 +168,13 @@ istream & operator>>(istream &lhs, myData &rhs){
     return(lhs);
 }
 
-bool kMeansClustering(int nclust, int maxIter, double tol){
-    
+bool myData::kMeansClustering(int _nclust, int maxIter, double toler){
+    if(nclust != 0){
+        delete [] clusters;
+        nclust = 0;
+    }
+    nclust = _nclust;
+    clusters = new Clust[nclust];
+    cout << clusters[0].centroid;
+    return(1);
 }

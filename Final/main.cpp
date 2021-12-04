@@ -15,4 +15,5 @@ int main(int argc, char **argv){
     cin >> dataA;
     dataA.print();
     dataA.summary();
+    dataA.kMeansClustering(3, 4, .001);
 }

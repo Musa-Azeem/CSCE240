@@ -1,7 +1,7 @@
 #ifndef MYDATA_H
 #define MYDATA_H
 #include "Point.h"
-#include "Cluster.h"
+#include "Clust.h"
 #include <iostream>
 
 class myData{
@@ -21,7 +21,7 @@ class myData{
         int getNclust() const;
         Point * accessObserv(const int index);
         
-        bool kMeansClustering(int nclust, int maxIter, double tol);//Kmeans function()
+        bool kMeansClustering(int _nclust, int maxIter, double toler);//Kmeans function()
         //cluster summary
         
         void summary() const;
@@ -41,8 +41,10 @@ class myData{
         Point **data;
         long int size;
         int nvals;
-        Cluster **clusters;  //initilized by first call to kmeans (num of clusters given) - null until then
+        Clust *clusters;
         int nclust;
+        
+
 };
 
 #endif
