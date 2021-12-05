@@ -11,6 +11,13 @@ Point::Point(const int numOfCoord, const double val): size(numOfCoord), membersh
         coord[i] = val;
     }
 }
+Point::Point(const int numOfCoord, const double val, const int _membership): size(numOfCoord), centroidDistance(-1){
+    membership = _membership;
+    coord = new double[size];
+    for(int i(0); i<size; i++){
+        coord[i] = val;
+    }
+}
 Point::Point(const int numOfCoord, const double *_coord){
     init(numOfCoord, _coord, -1, -1);
 }
@@ -55,7 +62,7 @@ const double * Point::getCoord() const{
 }
 
 bool Point::setMembership(const int _membership){
-    if(_membership<=0){
+    if(_membership<0){
         cout << "Invalid Cluster ID" << endl;
         exit(1);
     }
@@ -63,7 +70,7 @@ bool Point::setMembership(const int _membership){
     return(1);
 }
 bool Point::setCentroidDistance(const double _centroidDistance){
-    if(_centroidDistance<=0){
+    if(_centroidDistance<0){
         cout << "Invalid Distance" << endl;
         exit(1);
     }

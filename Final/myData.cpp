@@ -1,5 +1,7 @@
 #include "myData.h"
-#include "math.h"
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -28,6 +30,7 @@ myData::myData(const long int nobserv, const int _nvals, const double val=0): si
 }*/
 myData::myData(const myData &other){
     size = other.size;
+    nvals = other.nvals;
     if(size != 0){ 
         data = new Point*[size];
         for(int i(0); i<size; i++){
@@ -39,10 +42,9 @@ myData::myData(const myData &other){
     }
     nclust = other.nclust;
     if(nclust != 0){
-        clusters = new Clust[nclust];
+        clusters = new Clust*[nclust];
         for(int i(0); i<nclust; i++){
-            clusters[i].centroid = Point(other.clusters[i].centroid);
-            clusters[i].nmembers = other.clusters[i].nmembers;
+            clusters[i] = new Clust(*other.clusters[i]);
         }
     }
     else{
@@ -50,6 +52,9 @@ myData::myData(const myData &other){
     }
 }
 myData::~myData(){
+    for(int i(0); i<nclust; i++){
+        delete clusters[i];
+    }
     delete [] clusters;
     for(int i(0); i<size; i++){
         delete data[i];
@@ -58,7 +63,17 @@ myData::~myData(){
 }
 
 const myData & myData::operator=(const myData &rhs){
+    for(int i(0); i<nclust; i++){
+        delete clusters[i];
+    }
+    delete [] clusters;
+    for(int i(0); i<size; i++){
+        delete data[i];
+    }
+    delete [] data;
+
     size = rhs.size;
+    nvals = rhs.nvals;
     if(size != 0){ 
         data = new Point*[size];
         for(int i(0); i<size; i++){
@@ -70,10 +85,9 @@ const myData & myData::operator=(const myData &rhs){
     }
     nclust = rhs.nclust;
     if(nclust != 0){
-        clusters = new Clust[nclust];
+        clusters = new Clust*[nclust];
         for(int i(0); i<nclust; i++){
-            clusters[i].centroid = Point(rhs.clusters[i].centroid);
-            clusters[i].nmembers = rhs.clusters[i].nmembers;
+            clusters[i] = new Clust(*rhs.clusters[i]);
         }
     }
     else{
@@ -170,11 +184,22 @@ istream & operator>>(istream &lhs, myData &rhs){
 
 bool myData::kMeansClustering(int _nclust, int maxIter, double toler){
     if(nclust != 0){
+        for(int i(0); i<nclust; i++){
+            delete clusters[i];
+        }
         delete [] clusters;
         nclust = 0;
     }
     nclust = _nclust;
-    clusters = new Clust[nclust];
-    cout << clusters[0].centroid;
+    clusters = new Clust*[nclust];
+    
+    //get random initial centroid locations
+    srand(time(NULL));
+    for(int i(0); i<nclust; i++){
+        clusters[i] = new Clust(nvals, rand(), i, 0);
+        cout << (*clusters[i]).centroid << endl;
+    }
+
+
     return(1);
 }

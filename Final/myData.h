@@ -41,7 +41,7 @@ class myData{
         Point **data;
         long int size;
         int nvals;
-        Clust *clusters;
+        Clust **clusters;
         int nclust;
         
 
