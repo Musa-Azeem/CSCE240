@@ -1,4 +1,5 @@
 #include "Point.h"
+#include <math.h>
 
 using namespace std;
 
@@ -89,11 +90,11 @@ double Point::distance(const Point &other) const{
         cout << "Point objects are of difference dimensions" << endl;
         exit(1);
     }
-    int sum(0);
+    double sum(0);
     for(int i(0); i<size; i++){
         sum += (coord[i] - other[i]) * (coord[i] - other[i]);
     }
-    return(sum);
+    return(sqrt(sum));
 }
 
 double Point::operator[](const int index) const{

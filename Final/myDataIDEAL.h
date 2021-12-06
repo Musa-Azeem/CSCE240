@@ -21,7 +21,7 @@ class myData{
         int getNclust() const;
         //Point * accessObserv(const int index);
         
-        double kMeansClustering(int _nclust, int maxIter, double toler);//Kmeans function()
+        bool kMeansClustering(int _nclust, int maxIter, double toler);//Kmeans function()
         //cluster summary
         
         void Summary() const;
@@ -38,10 +38,10 @@ class myData{
 
         void print() const;
     private:
-        Point **data;
+        Point *data;
         long int size;
         int nvals;
-        Clust **clusters;
+        Clust *clusters;
         int nclust;
         
         void setMemberships();

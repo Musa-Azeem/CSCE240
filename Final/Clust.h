@@ -3,11 +3,13 @@
 #include "Point.h"
 
 struct Clust{
-    Clust(const int nvals, const int val, const int membership, const int _nmembers): 
-        centroid(nvals, val, membership), nmembers(_nmembers) {}
-    Clust(const Clust &other): centroid(other.centroid), nmembers(other.nmembers) {}
+    Clust(): centroid(), nmembers(0), totalDistance(0) {}
+    Clust(const int nvals, const double val, const int membership): 
+        centroid(nvals, val, membership), nmembers(0), totalDistance(0) {}
+    Clust(const Clust &other): centroid(other.centroid), nmembers(other.nmembers), totalDistance(other.totalDistance) {}
     Point centroid;
     int nmembers;
+    double totalDistance;   //sum of all member points distances to the cluster's centroid
 };
 
 #endif
