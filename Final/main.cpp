@@ -13,8 +13,9 @@ int main(int argc, char **argv){
     //Point pointC(*dataA.accessObserv(0));
     //cout << pointC << endl;
     cin >> dataA;
-    dataA.print();
-    dataA.summary();
+    //dataA.print();
+    //dataA.summary();
     cout << "_________________________________" << endl;
-    dataA.kMeansClustering(3, 4, .001);
+    dataA.kMeansClustering(2, 4, .001);
+    cout << dataA << endl;
 }

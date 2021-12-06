@@ -21,8 +21,8 @@ class Point{
         double getCentroidDistance() const;
         const double * getCoord() const;
 
-        bool setCentroidDistance(const double _centroidDistance);
-        bool setMembership(const int _membership);
+        void setCentroidDistance(const double _centroidDistance);
+        void setMembership(const int _membership);
 
         double distance(const Point &other) const;
 

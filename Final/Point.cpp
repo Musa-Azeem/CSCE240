@@ -61,21 +61,19 @@ const double * Point::getCoord() const{
     return(coord);
 }
 
-bool Point::setMembership(const int _membership){
+void Point::setMembership(const int _membership){
     if(_membership<0){
         cout << "Invalid Cluster ID" << endl;
         exit(1);
     }
     membership = _membership;
-    return(1);
 }
-bool Point::setCentroidDistance(const double _centroidDistance){
+void Point::setCentroidDistance(const double _centroidDistance){
     if(_centroidDistance<0){
         cout << "Invalid Distance" << endl;
         exit(1);
     }
     centroidDistance = _centroidDistance;
-    return(1);
 }
 
 double Point::distance(const Point &other) const{
@@ -126,7 +124,7 @@ bool Point::operator==(const Point &rhs) const{
     return(1);
 }
 
-ostream & operator<<(ostream &lhs, const Point &rhs){
+ostream & operator<<(ostream &lhs, const Point &rhs){   //TODO rewrite to ' ' delim
     lhs << "Membership: " << rhs.getMembership() << endl;
     lhs << "Distance from Centroid: " << rhs.getCentroidDistance() << endl;
     lhs << "Number of Values|Coordinates: " << rhs.getSize() << endl;

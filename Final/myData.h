@@ -6,7 +6,7 @@
 
 class myData{
     friend std::istream & operator>>(std::istream &lhs, myData &rhs);
-    //TODO <<
+    friend std::ostream & operator<<(std::ostream &lhs, const myData &rhs);
     public:
         myData();
         myData(const long int nobserv, const int _nvals, const double val);
@@ -19,12 +19,12 @@ class myData{
         long int getSize() const;
         int getNvals() const;
         int getNclust() const;
-        Point * accessObserv(const int index);
+        //Point * accessObserv(const int index);
         
         bool kMeansClustering(int _nclust, int maxIter, double toler);//Kmeans function()
         //cluster summary
         
-        void summary() const;
+        void Summary() const;
         double getMinValue(const int col) const;
         double getMaxValue(const int col) const;
         double getMean(const int col) const;
@@ -44,6 +44,8 @@ class myData{
         Clust **clusters;
         int nclust;
         
+        void setMemberships();
+        double moveCentroids();
 
 };
 
