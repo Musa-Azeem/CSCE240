@@ -15,7 +15,7 @@ int main(int argc, char **argv){
     cin >> dataA;
     //dataA.print();
     //dataA.summary();
-    cout << "_________________________________" << endl;
     dataA.kMeansClustering(2, 10, .001);
-    cout << dataA << endl;
+    //cout << dataA << endl;
+    dataA.ClusterSummary();
 }

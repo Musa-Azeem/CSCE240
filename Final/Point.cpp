@@ -125,6 +125,13 @@ bool Point::operator==(const Point &rhs) const{
     return(1);
 }
 
+void Point::print() const{
+    for(int i(0); i<size; i++){
+        cout << coord[i] << " ";
+    }
+    cout << endl;
+}
+
 ostream & operator<<(ostream &lhs, const Point &rhs){   //TODO rewrite to ' ' delim
     lhs << "Membership: " << rhs.getMembership() << endl;
     lhs << "Distance from Centroid: " << rhs.getCentroidDistance() << endl;

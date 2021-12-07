@@ -26,6 +26,8 @@ class Point{
 
         double distance(const Point &other) const;
 
+        void print() const;
+
         double operator[](const int index) const;
         double & operator[](const int index);
         bool operator==(const Point &rhs) const;

@@ -3,30 +3,15 @@
 
 using namespace std;
 
-//SETTERS for size
-
 myData::myData(): data(nullptr), size(0), nvals(0), clusters(nullptr), nclust(0) {}
-//TODO try using assignment operator to initialize array of Points
 myData::myData(const long int nobserv, const int _nvals, const double val=0): size(nobserv), nvals(_nvals), clusters(nullptr), nclust(0){
     //initilize array to be used to populate object (from given value)
-    /*double valArr[nvals];
-    for(int i(0); i<nvals; i++){
-        valArr[i] = val;
-    }*/
-    //initialize data of object with given value
+    //initialize data of object with given value and inital membership to first cluster
     data = new Point*[size];
     for(int i(0); i<size; i++){
-        data[i] = new Point(nvals, val);
+        data[i] = new Point(nvals, val, 0);
     }
 }
-/*myData::myData(const long int nobserv, const int _nvals, const double **_data): clusters(nullptr), nclust(0){
-    size = nobserv;
-    nvals = _nvals;
-    data = new Point*[size];
-    for(int i(0); i<size; i++){
-        data[i] = new Point(nvals, _data[i]);
-    }
-}*/
 myData::myData(const myData &other){
     size = other.size;
     nvals = other.nvals;
@@ -99,10 +84,6 @@ long int myData::getSize() const{return(size);}
 int myData::getNvals() const{return(nvals);}
 int myData::getNclust() const{return(nclust);}
 
-/*Point * myData::accessObserv(const int index){
-    return(data[index]);
-}*/
-
 void myData::print() const{
     for(int i(0); i<size; i++){
         cout << *data[i] << endl;
@@ -171,6 +152,14 @@ double myData::getStandDev(const int col, const double mean) const{
     }
     return(sqrt(sum/size));
 }
+double myData::getFitness() const{
+    double fitness(0);
+    for(int i(0); i<nclust; i++){
+        fitness += (*clusters[i]).totalDistance;
+    }
+    fitness = fitness / size;
+    return(fitness);
+}
 
 istream & operator>>(istream &lhs, myData &rhs){
     //requires number of observations (size) to be set beforehand
@@ -211,6 +200,24 @@ ostream & operator<<(ostream &lhs, const myData &rhs){  //TODO convert to ' ' de
     return(lhs);
 }
 
+void myData::ClusterSummary() const{
+    if(!clusters){
+        cout << "kMeans Clustering has not been completed" << endl;
+        return;
+    }
+    cout << "Total fitness: " << getFitness() << endl;
+    cout << "Numbers of Clusters: " << nclust << endl;
+    for(int i(0); i<nclust; i++){                        
+        cout << "Cluster " << i << ": " << endl;
+        cout << "Centroid: ";
+        for(int j(0); j<nvals; j++){
+            cout << (*clusters[i]).centroid[j] << " ";
+        }
+        cout << endl << "Number of Members: " << (*clusters[i]).nmembers << endl;
+        cout << "Average Distance: " << (*clusters[i]).totalDistance / (*clusters[i]).nmembers << endl << endl;
+    }
+}
+
 double myData::kMeansClustering(int _nclust, int maxIter, double toler){
     if(size==0){
         cout << "no data" << endl;
@@ -236,18 +243,19 @@ double myData::kMeansClustering(int _nclust, int maxIter, double toler){
         random = drand48()*getMaxValue(0);  //get semi-random number (use max value of first column so number is near data)
         clusters[i] = new Clust(nvals, random, i);
     }
+    //initalize so that all points are initially members of cluster one
+    (*clusters[0]).nmembers = size;
     int iter(0);
     Point *prevCentroids[nclust];
     bool cont(1);
     while(cont){
-        cout << " ___________________________________ "<< endl;
-        cout << "iter" << iter << endl;
         for(int i(0); i<nclust; i++){
             prevCentroids[i] = new Point((*clusters[i]).centroid);
         }
 
         setMemberships();   //call method to calc distances and set memberships
         moveCentroids();    //move centroids to mean of all points assigned to it
+
         cont = 0;
         for(int i(0); i<nclust; i++){
             if((*clusters[i]).centroid.distance((*prevCentroids[i]))>toler){
@@ -261,12 +269,22 @@ double myData::kMeansClustering(int _nclust, int maxIter, double toler){
         }
         iter++;
     }
-    return(1);
+    //clean up - set all points centroidDistance and calculate the fitness (total distances of each cluster)
+    double tempDist;
+    for(int i(0); i<size; i++){
+        for(int id(0); id<nclust; id++){                
+            if((*data[i]).getMembership() == id){
+                tempDist = (*data[i]).distance((*clusters[id]).centroid);
+                (*data[i]).setCentroidDistance(tempDist);
+                (*clusters[id]).totalDistance += tempDist;
+            }
+        }
+    }
+    return(getFitness());
 }
 void myData::setMemberships(){
     //calculate distance between every point and each cluster
     //assign membership of each point to closest cluster
-    cout << *this << endl;
     double leastDist;
     double prevDist;
     double dist;
@@ -274,20 +292,10 @@ void myData::setMemberships(){
     int prevMember;
     for(int i(0); i<size; i++){
         //loop through every data point
-        prevMember = (*data[i]).getMembership();    //save the old membership of point before changing it
+        id = (*data[i]).getMembership();    //save the old membership of point before changing it
+        (*data[i]).setCentroidDistance((*data[i]).distance((*clusters[id]).centroid));  //set each points centroid distance to moved centroid
         leastDist = (*data[i]).getCentroidDistance();   //initially set leastDist to distance to current centroid
-        if(prevMember == -1){   //if first iteration of kmeans, points have no membership and no centroidDistance
-            (*data[i]).setMembership(0);    //set membership to first cluster
-            (*clusters[0]).nmembers++;
-            prevMember = 0;
-            leastDist = (*data[i]).distance((*clusters[0]).centroid);  //set leastDist to distance to first cluster
-            (*data[i]).setCentroidDistance(leastDist);
-            (*clusters[0]).totalDistance+=leastDist;
-            //cout << i << " " << leastDist <<  " " << (*clusters[0]).totalDistance << endl;
-        }
-
-        prevDist = leastDist;
-        id = prevMember;
+        prevMember = id;
         for(int j(0); j<nclust; j++){
             //loop through clusters - calculate distance of current point to each cluster
             //set leastDist to the distance to the nearest cluster
@@ -299,28 +307,17 @@ void myData::setMemberships(){
             }
         }
         if(id != prevMember){   //change membership of point if there is a new shortest distance
-            cout << "i " << i << endl;
-            cout << "least dist " << leastDist << endl;
-            cout << "id " << id << endl;
-            cout << "cluster before change" << (*clusters[id]).totalDistance << endl;
             (*data[i]).setMembership(id);
-            (*data[i]).setCentroidDistance(leastDist);
             (*clusters[id]).nmembers++;    //incremenent counter of members for centroid
-            (*clusters[id]).totalDistance += leastDist; //add new member's distance to centroid to total
-            cout << "cluster after change" << (*clusters[id]).totalDistance << endl;
             (*clusters[prevMember]).nmembers--; //decrement old centroid since it lost a member
-            cout << "old cluster before change" << (*clusters[prevMember]).totalDistance << endl;
-            (*clusters[prevMember]).totalDistance -= prevDist;
-            cout << "old cluster after change" << (*clusters[prevMember]).totalDistance << endl;
         }
     }
-    cout << "after setMembership" << endl;
-    cout << *this << endl;
 }
 
 double myData::moveCentroids(){
     //moves centroids to the mean of all points assigned to it
     //return new average distance
+    //also sets clusters total distance and each points centroid distance for next iteration
     double means[nclust][nvals];    //hold mean of each coordinate of data points assigned to each cluster
     for(int i(0); i<nclust; i++){
         for(int j(0); j<nvals; j++){
@@ -334,19 +331,17 @@ double myData::moveCentroids(){
                 for(int j(0); j<nvals; j++){
                     means[id][j] += (*data[i])[j];
                 }
+                (*data[i]).setCentroidDistance((*data[i]).distance((*clusters[id]).centroid));
             }
         }
     }
     for(int i(0); i<nclust; i++){   //loop through clusters to find means and assign new location
         for(int j(0); j<nvals; j++){
-            means[i][j] = means[i][j] / (*clusters[i]).nmembers;
-            (*clusters[i]).centroid[j] = means[i][j];
+            if((*clusters[i]).nmembers!=0){
+                means[i][j] = means[i][j] / (*clusters[i]).nmembers;
+                (*clusters[i]).centroid[j] = means[i][j];
+            }
         }
     }
-
-    /*double mean;
-    for(int i(0); i<nclust; i++){   //calculate fitenss of each centroid
-        mean = (*clusters[i]).totalDistance / (*clusters[i]).nmembers;
-    }*/
     return(0);
 }

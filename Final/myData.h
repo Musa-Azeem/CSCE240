@@ -21,14 +21,15 @@ class myData{
         int getNclust() const;
         //Point * accessObserv(const int index);
         
-        double kMeansClustering(int _nclust, int maxIter, double toler);//Kmeans function()
-        //cluster summary
+        double kMeansClustering(int _nclust, int maxIter, double toler);
+        void ClusterSummary() const;
         
         void Summary() const;
         double getMinValue(const int col) const;
         double getMaxValue(const int col) const;
         double getMean(const int col) const;
         double getStandDev(const int col, const double mean) const;
+        double getFitness() const;
 
         const myData & operator=(const myData &other);
         bool operator==(const myData &other) const;         //TODO

@@ -9,9 +9,9 @@ from sklearn.neighbors import NearestNeighbors
 if __name__ == '__main__':
 
 # Read the data
-    myData = pd.read_csv("Example1.txt", sep=' ')
+    myData = pd.read_csv("Example2.txt", sep=' ')
 # Perform K-Means Cluster analysis with only 2 clusters. 
-    kmeans = KMeans(n_clusters=2, init='random', n_init=1, max_iter=100, tol=0.0001, verbose=0)
+    kmeans = KMeans(n_clusters=3, init='random', n_init=1, max_iter=100, tol=0.0001, verbose=0)
     kmeans.fit(myData)
     print("Fitness: ", kmeans.inertia_)
     print("Membership: ")
