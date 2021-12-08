@@ -176,7 +176,7 @@ int & myData::operator[](int index){
     return((*data[index]).accessMembership());
 }
 myData myData::operator+(const myData &rhs) const{
-    int retSize;
+    int retSize(size+rhs.size);
     myData ret(retSize, nvals);
     for(int i(0); i<size; i++){
         *ret.data[i] = Point(*data[i]);
