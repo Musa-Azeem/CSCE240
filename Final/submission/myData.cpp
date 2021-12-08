@@ -178,7 +178,6 @@ ostream & operator<<(ostream &lhs, const myData &rhs){  //TODO convert to ' ' de
     //prints data points and their memberships to stdout
     //then prints centroid information
     for(int i(0); i<rhs.getSize(); i++){
-        lhs << "Data: \t";
         for(int j(0); j<rhs.getNvals(); j++){
             lhs << (*rhs.data[i])[j] << " ";    //TODO call point <<
         }

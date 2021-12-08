@@ -133,17 +133,13 @@ void Point::print() const{
 }
 
 ostream & operator<<(ostream &lhs, const Point &rhs){   //TODO rewrite to ' ' delim
-    lhs << "Membership: " << rhs.getMembership() << endl;
-    lhs << "Distance from Centroid: " << rhs.getCentroidDistance() << endl;
-    lhs << "Number of Values|Coordinates: " << rhs.getSize() << endl;
     if(!rhs.getCoord()){
         return(lhs);
     }
-    lhs << "Values|Coordinates: " << endl;
     for(int i(0); i<rhs.getSize(); i++){
-        lhs << rhs[i] << " ";
+        lhs << rhs[i] << ",";
     }
-    lhs << endl;
+    lhs << rhs.getMembership();
     return(lhs);
 }
 istream & operator>>(istream &lhs, Point &rhs){
