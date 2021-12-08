@@ -22,7 +22,7 @@ class Point{
 //        Point(const int numOfCoord, const double val);
         Point(const int numOfCoord, const double val, const int _membership);
 //        Point(const int numOfCoord, const double *_coord);
-//        Point(const int numOfCoord, const double *_coord, const int _membership);
+        Point(const int numOfCoord, const double *_coord, const int _membership);
 //        Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance);
         Point(const Point &other);
         ~Point();

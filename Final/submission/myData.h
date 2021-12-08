@@ -10,11 +10,9 @@ class myData{
     public:
         myData();
         myData(const long int nobserv, const int _nvals, const double val);
-        //myData(const long int nobserv, const int _nvals, const double **_data);
+        myData(const double _data[][0], const long int nobserv, const int _nvals);
         myData(const myData &other);
         ~myData();
-
-        //void setSize(const long int _size);     //TODO and implement
 
         long int getSize() const;
         int getNvals() const;

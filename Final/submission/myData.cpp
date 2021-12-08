@@ -12,6 +12,12 @@ myData::myData(const long int nobserv, const int _nvals, const double val=0): si
         data[i] = new Point(nvals, val, 0);
     }
 }
+myData::myData(const double _data[][0], const long int nobserv, const int _nvals): size(nobserv), nvals(_nvals), clusters(nullptr), nclust(0) {
+    data = new Point*[size];
+    for(int i(0); i<size; i++){
+        data[i] = new Point(nvals, _data[i], 0);
+    }
+}
 myData::myData(const myData &other){
     size = other.size;
     nvals = other.nvals;

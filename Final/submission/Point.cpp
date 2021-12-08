@@ -18,11 +18,14 @@ Point::Point(const int numOfCoord, const double val, const int _membership): siz
 }
 /*Point::Point(const int numOfCoord, const double *_coord){
     init(numOfCoord, _coord, -1, -1);
+}*/
+Point::Point(const int numOfCoord, const double *_coord, const int _membership): size(numOfCoord), membership(_membership), centroidDistance(-1) {
+    coord = new double[size];
+    for(int i(0); i<size; i++){
+        coord[i] = _coord[i];
+    }
 }
-Point::Point(const int numOfCoord, const double *_coord, const int _membership){
-    init(numOfCoord, _coord, _membership, -1);
-}
-Point::Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance){
+/*Point::Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance){
     init(numOfCoord, _coord, _membership, _centroidDistance);
 }*/
 Point::Point(const Point &other){
