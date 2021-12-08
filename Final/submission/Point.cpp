@@ -6,12 +6,12 @@ using namespace std;
 Point::Point(){
     init(0, nullptr, -1, -1);
 }
-Point::Point(const int numOfCoord, const double val): size(numOfCoord), membership(-1), centroidDistance(-1){
+/*Point::Point(const int numOfCoord, const double val): size(numOfCoord), membership(-1), centroidDistance(-1){
     coord = new double[size];
     for(int i(0); i<size; i++){
         coord[i] = val;
     }
-}
+}*/
 Point::Point(const int numOfCoord, const double val, const int _membership): size(numOfCoord), centroidDistance(-1){
     membership = _membership;
     coord = new double[size];
@@ -19,7 +19,7 @@ Point::Point(const int numOfCoord, const double val, const int _membership): siz
         coord[i] = val;
     }
 }
-Point::Point(const int numOfCoord, const double *_coord){
+/*Point::Point(const int numOfCoord, const double *_coord){
     init(numOfCoord, _coord, -1, -1);
 }
 Point::Point(const int numOfCoord, const double *_coord, const int _membership){
@@ -27,7 +27,7 @@ Point::Point(const int numOfCoord, const double *_coord, const int _membership){
 }
 Point::Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance){
     init(numOfCoord, _coord, _membership, _centroidDistance);
-}
+}*/
 Point::Point(const Point &other){
     init(other.getSize(), other.coord, other.getMembership(), other.getCentroidDistance());
 }
@@ -58,9 +58,9 @@ int Point::getMembership() const{
 double Point::getCentroidDistance() const{
     return(centroidDistance);
 }
-const double * Point::getCoord() const{
+/*const double * Point::getCoord() const{
     return(coord);
-}
+}*/
 
 void Point::setMembership(const int _membership){
     if(_membership<0){
@@ -76,9 +76,12 @@ void Point::setCentroidDistance(const double _centroidDistance){
     }
     centroidDistance = _centroidDistance;
 }
+int & Point::accessMembership(){
+    return(membership);
+}
 
 double Point::distance(const Point &other) const{
-    if(!other.getCoord()){
+    if(!other.coord){
         cout << "Argument Point Object data is Null" << endl;
         exit(1);
     }
@@ -112,7 +115,7 @@ double & Point::operator[](const int index){
     }
     return(coord[index]);
 }
-bool Point::operator==(const Point &rhs) const{
+/*bool Point::operator==(const Point &rhs) const{
     //only checks values - not membership
     if(size != rhs.getSize()){
         return(0);
@@ -123,17 +126,17 @@ bool Point::operator==(const Point &rhs) const{
         }    
     }
     return(1);
-}
+}*/
 
-void Point::print() const{
+/*void Point::print() const{
     for(int i(0); i<size; i++){
         cout << coord[i] << " ";
     }
     cout << endl;
-}
+}*/
 
 ostream & operator<<(ostream &lhs, const Point &rhs){   //TODO rewrite to ' ' delim
-    if(!rhs.getCoord()){
+    if(!rhs.coord){
         return(lhs);
     }
     for(int i(0); i<rhs.getSize(); i++){

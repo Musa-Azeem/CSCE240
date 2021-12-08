@@ -84,11 +84,11 @@ long int myData::getSize() const{return(size);}
 int myData::getNvals() const{return(nvals);}
 int myData::getNclust() const{return(nclust);}
 
-void myData::print() const{
+/*void myData::print() const{
     for(int i(0); i<size; i++){
         cout << *data[i] << endl;
     }
-}
+}*/
 
 void myData::Summary() const{
     cout << "Number of points in each column: " << size << endl << endl;;
@@ -161,6 +161,21 @@ double myData::getFitness() const{
     return(fitness);
 }
 
+int myData::operator[](int index) const{
+    if(index<0 || index>=size){
+        cout << "index out of range" << endl;
+        exit(1);
+    }
+    return((*data[index]).getMembership());
+}
+int & myData::operator[](int index){
+    if(index<0 || index>=size){
+        cout << "index out of range" << endl;
+        exit(1);
+    }
+    return((*data[index]).accessMembership());
+}
+
 istream & operator>>(istream &lhs, myData &rhs){
     //requires number of observations (size) to be set beforehand
     if(rhs.getSize()==0){
@@ -174,38 +189,29 @@ istream & operator>>(istream &lhs, myData &rhs){
     }
     return(lhs);
 }
-ostream & operator<<(ostream &lhs, const myData &rhs){  //TODO convert to ' ' delim
-    //prints data points and their memberships to stdout
-    //then prints centroid information
+ostream & operator<<(ostream &lhs, const myData &rhs){
+    /*
+    Prints data points and centroids to stdout, seperated by ','
+    Prints data points and appends the cluster ID they were assigned to
+    Prints Centroids and appends the cluster ID they belong to
+    */
     for(int i(0); i<rhs.getSize(); i++){
-        for(int j(0); j<rhs.getNvals(); j++){
-            lhs << (*rhs.data[i])[j] << " ";    //TODO call point <<
-        }
-        lhs << "\t Membership: " << (*rhs.data[i]).getMembership() << endl;
+        lhs << (*rhs.data[i]) << endl;
     }
-    //centroids
-    
-    lhs << "Centroids:" << endl;
+    lhs << endl;
     for(int i(0); i<rhs.getNclust(); i++){
-        //TODO call point <<
-        lhs << "Cluster "<< i << ": \t";
-        for(int j(0); j<rhs.getNvals(); j++){
-            lhs << (*rhs.clusters[i]).centroid[j] << " ";
-        }
-        lhs << "\t Num Members: " << (*rhs.clusters[i]).nmembers;
-        lhs << "\t Ave Dist: " << (*rhs.clusters[i]).totalDistance/(*rhs.clusters[i]).nmembers;
-        lhs << endl;
+        lhs << (*rhs.clusters[i]).centroid << endl;
     }
     return(lhs);
 }
 
 void myData::ClusterSummary() const{
     if(!clusters){
-        cout << "kMeans Clustering has not been completed" << endl;
+        cout << "kMeans Clustering has not been completed for this dataset" << endl;
         return;
     }
     cout << "Total fitness: " << getFitness() << endl;
-    cout << "Numbers of Clusters: " << nclust << endl;
+    cout << "Numbers of Clusters: " << nclust << endl << endl;
     for(int i(0); i<nclust; i++){                        
         cout << "Cluster " << i << ": " << endl;
         cout << "Centroid: ";
@@ -219,7 +225,7 @@ void myData::ClusterSummary() const{
 
 double myData::kMeansClustering(int _nclust, int maxIter, double toler){
     if(size==0){
-        cout << "no data" << endl;
+        cout << "no data, cannot complete Kmeans Clustering" << endl;
         return(0);
     }
     //TODO try assigning each data part of Clust instead of new

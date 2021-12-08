@@ -38,24 +38,24 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    //myData data1;
+    myData data1;
     myData data2(obs, dim, 0);
 
     in_file >> data2;
     data2.Summary();
-    fitness = data2.kMeansClustering(3, 100, 0.001);
+    fitness = data2.kMeansClustering(2, 100, 0.001);
     cout << "K-Means Cluster with 2 clusters produced a fitness of " << fitness;
     cout << endl;
     //kMeansClustering.ClusterSummary();
     data2.ClusterSummary();
 
-    //myData data3(data2);
+    myData data3(data2);
     out_file << data2;
 
-    //data1 = data2;
+    data1 = data2;
 
     in_file.close();
     out_file.close();
 
-    return 0;
+    return(0);
 }

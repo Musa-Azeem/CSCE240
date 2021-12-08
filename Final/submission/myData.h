@@ -19,7 +19,6 @@ class myData{
         long int getSize() const;
         int getNvals() const;
         int getNclust() const;
-        //Point * accessObserv(const int index);
         
         double kMeansClustering(int _nclust, int maxIter, double toler);
         void ClusterSummary() const;
@@ -35,9 +34,10 @@ class myData{
         bool operator==(const myData &other) const;         //TODO
         bool operator!=(const myData &other) const;         //TODO
         const myData operator+(const myData &other) const;  //TODO
-        //TODO operator []
+        int operator[](int index) const;
+        int & operator[](int index);
 
-        void print() const;
+//        void print() const;
     private:
         Point **data;
         long int size;
