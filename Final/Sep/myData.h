@@ -18,7 +18,7 @@ class myData{
         int getNvals() const;
         int getNclust() const;
         
-        double kMeansClustering(int _nclust, int maxIter, double toler);
+        double kMeansClustering(const int _nclust, const int maxIter, const double toler);
         void ClusterSummary() const;
         
         void Summary() const;

@@ -256,7 +256,7 @@ void myData::ClusterSummary() const{
     }
 }
 
-double myData::kMeansClustering(int _nclust, int maxIter, double toler){
+double myData::kMeansClustering(const int _nclust, const int maxIter, const double toler){
     if(size==0){
         cout << "no data, cannot complete Kmeans Clustering" << endl;
         return(0);
