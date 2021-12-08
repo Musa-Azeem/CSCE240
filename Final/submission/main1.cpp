@@ -53,6 +53,12 @@ int main(int argc, char** argv)
     out_file << data2;
 
     data1 = data2;
+    Point pointA(3, 3, -1);
+    Point pointB(pointA);
+    cout << pointB << endl;
+    cout << pointA << endl;
+    //myData data4 = data1+data2;
+    //cout << data4 << endl;
 
     in_file.close();
     out_file.close();

@@ -3,17 +3,14 @@
 
 using namespace std;
 
-Point::Point(){
-    init(0, nullptr, -1, -1);
-}
+Point::Point(): size(0), coord(nullptr), membership(-1), centroidDistance(-1){}
 /*Point::Point(const int numOfCoord, const double val): size(numOfCoord), membership(-1), centroidDistance(-1){
     coord = new double[size];
     for(int i(0); i<size; i++){
         coord[i] = val;
     }
 }*/
-Point::Point(const int numOfCoord, const double val, const int _membership): size(numOfCoord), centroidDistance(-1){
-    membership = _membership;
+Point::Point(const int numOfCoord, const double val, const int _membership): size(numOfCoord), membership(_membership), centroidDistance(-1){
     coord = new double[size];
     for(int i(0); i<size; i++){
         coord[i] = val;
@@ -29,7 +26,18 @@ Point::Point(const int numOfCoord, const double *_coord, const int _membership, 
     init(numOfCoord, _coord, _membership, _centroidDistance);
 }*/
 Point::Point(const Point &other){
-    init(other.getSize(), other.coord, other.getMembership(), other.getCentroidDistance());
+    size = other.size;
+    membership = other.membership;
+    centroidDistance = other.centroidDistance;
+    if(size==0){
+        coord = nullptr;
+    }
+    else{
+        coord = new double[size];
+        for(int i(0); i<size; i++){
+            coord[i] = other[i];
+        }
+    }
 }
 Point::~Point(){
     delete [] coord;
@@ -115,7 +123,24 @@ double & Point::operator[](const int index){
     }
     return(coord[index]);
 }
-/*bool Point::operator==(const Point &rhs) const{
+
+const Point & Point::operator=(const Point &rhs){
+    delete [] coord;
+    size = rhs.size;
+    membership = rhs.membership;
+    centroidDistance = rhs.centroidDistance;
+    if(size==0){
+        coord = nullptr;
+    }
+    else{
+        coord = new double[size];
+        for(int i(0); i<size; i++){
+            coord[i] = rhs[i];
+        }
+    }
+    return(rhs);
+}
+bool Point::operator==(const Point &rhs) const{
     //only checks values - not membership
     if(size != rhs.getSize()){
         return(0);
@@ -126,7 +151,7 @@ double & Point::operator[](const int index){
         }    
     }
     return(1);
-}*/
+}
 
 /*void Point::print() const{
     for(int i(0); i<size; i++){

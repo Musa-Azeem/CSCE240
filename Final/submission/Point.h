@@ -43,8 +43,8 @@ class Point{
 
         double operator[](const int index) const;
         double & operator[](const int index);
-//        bool operator==(const Point &rhs) const;
-        //const Point & operator=(const Point &rhs);
+        bool operator==(const Point &rhs) const;
+        const Point & operator=(const Point &rhs);
     protected:
         double *coord;
         int size;

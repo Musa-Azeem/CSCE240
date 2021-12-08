@@ -14,7 +14,7 @@ class myData{
         myData(const myData &other);
         ~myData();
 
-        void setSize(const long int _size);     //TODO and implement
+        //void setSize(const long int _size);     //TODO and implement
 
         long int getSize() const;
         int getNvals() const;
@@ -33,7 +33,7 @@ class myData{
         const myData & operator=(const myData &other);
         bool operator==(const myData &other) const;         //TODO
         bool operator!=(const myData &other) const;         //TODO
-        const myData operator+(const myData &other) const;  //TODO
+        myData operator+(const myData &other) const;
         int operator[](int index) const;
         int & operator[](int index);
 

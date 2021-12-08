@@ -175,7 +175,17 @@ int & myData::operator[](int index){
     }
     return((*data[index]).accessMembership());
 }
-
+myData myData::operator+(const myData &rhs) const{
+    int retSize;
+    myData ret(retSize, nvals);
+    for(int i(0); i<size; i++){
+        *ret.data[i] = Point(*data[i]);
+    }
+    for(int i(size); i<retSize; i++){
+        *ret.data[i] = Point(*rhs.data[i-size]);
+    }
+    return(ret);
+}
 istream & operator>>(istream &lhs, myData &rhs){
     //requires number of observations (size) to be set beforehand
     if(rhs.getSize()==0){
@@ -194,6 +204,8 @@ ostream & operator<<(ostream &lhs, const myData &rhs){
     Prints data points and centroids to stdout, seperated by ','
     Prints data points and appends the cluster ID they were assigned to
     Prints Centroids and appends the cluster ID they belong to
+    Input:  instance of myData and ostream to print it to
+    Output: data of object is printed to ostream
     */
     for(int i(0); i<rhs.getSize(); i++){
         lhs << (*rhs.data[i]) << endl;
