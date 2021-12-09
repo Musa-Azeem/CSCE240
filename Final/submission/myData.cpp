@@ -10,13 +10,13 @@ myData::myData(const long int nobserv, const int _nvals, const double val=0): si
     //initialize data of object with given value and inital membership to first cluster
     data = new Point[size];
     for(int i(0); i<size; i++){
-        data[i] = Point(nvals, val, 0);
+        data[i] = Point(nvals, val, -1);
     }
 }
 myData::myData(const double _data[][0], const long int nobserv, const int _nvals): size(nobserv), nvals(_nvals){
     data = new Point[size];
     for(int i(0); i<size; i++){
-        data[i] = Point(nvals, _data[i], 0);
+        data[i] = Point(nvals, _data[i], -1);
     }
 }
 myData::myData(const myData &other): size(other.size), nvals(other.nvals) {
@@ -117,14 +117,14 @@ double myData::getStandDev(const int col, const double mean) const{
     return(sqrt(sum/size));
 }
 
-int myData::operator[](int index) const{
+int myData::operator[](const int index) const{
     if(index<0 || index>=size){
         cout << "index out of range" << endl;
         exit(1);
     }
     return(data[index].getMembership());
 }
-int & myData::operator[](int index){
+int & myData::operator[](const int index){
     if(index<0 || index>=size){
         cout << "index out of range" << endl;
         exit(1);
@@ -132,6 +132,10 @@ int & myData::operator[](int index){
     return(data[index].accessMembership());
 }
 myData myData::operator+(const myData &rhs) const{
+    if(nvals!=rhs.nvals){
+        cout << "Objects are of different dimensions" << endl;
+        exit(1);
+    }
     int retSize(size+rhs.size);
     myData ret(retSize, nvals);
     for(int i(0); i<size; i++){

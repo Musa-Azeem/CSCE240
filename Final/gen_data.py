@@ -15,9 +15,9 @@ if __name__ == '__main__':
     myDF.to_csv("Example1.txt", sep=' ')
 
 
-    class1 = np.random.multivariate_normal(mean=[0, 0, 0], cov=[[1, 0, 0], [0, 0.1, 0], [0, 0, 1]], size=1000000)
-    class2 = np.random.multivariate_normal(mean=[5, 5, 5], cov=[[1, 0, 0], [0, 0.1, 0], [0, 0, 1]], size=1000000)
-    class3 = np.random.multivariate_normal(mean=[10,10, 10], cov=[[1, 0, 0], [0, 0.1, 0], [0, 0, 1]], size=1000000)
+    class1 = np.random.multivariate_normal(mean=[0, 5, 0], cov=[[1, 0, 0], [0, 0.1, 0], [0, 0, 1]], size=100000)
+    class2 = np.random.multivariate_normal(mean=[5, 5, -6], cov=[[1, 0, 0], [0, 0.1, 0], [0, 0, 1]], size=100000)
+    class3 = np.random.multivariate_normal(mean=[-40,10, 10], cov=[[1, 0, 0], [0, 0.1, 0], [0, 0, 1]], size=100000)
 
     myData = np.concatenate((class1, class2, class3))
     myDF = pd.DataFrame(myData)#, columns=['Var1', 'Var2', 'Var3'])

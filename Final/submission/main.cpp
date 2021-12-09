@@ -38,16 +38,19 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    //TESTING
+    myData data2(obs, dim, 0);
 
+    //TESTING
     myData data1;               //3) Default
-    myData data2(obs, dim, 0);  //4)    Alt
+    myData data5(obs, dim, 0);  //4)    Alt
     //5
     myData data3(data2);        //6) copy
-    data1 = data2;              //7) assignment
-    cout << "data1==data2" << (data1==data2) << endl;   //8) equality
-    cout << "data1!=data2" << (data1!=data2) << endl;   //9) inequality
-    myData data4 = data1+data2; //10) addition
+    data1 = data5;              //7) assignment
+    data1 = myData(30, 2, 0);
+    data3 = myData(10, 2, -4);
+    cout << "data1==data2 " << (data1==data2) << endl;   //8) equality
+    cout << "data1!=data2 " << (data1!=data2) << endl;   //9) inequality
+    myData data4 = data1+data3; //10) addition
     cout << data4;
     //11    no setters because they would not be appropriate
 
@@ -61,9 +64,7 @@ int main(int argc, char** argv)
     //17 []
     data2[0] = 5;
     cout << data2[0] << endl;
-
     out_file << data2;      //13) <<
-
 
     in_file.close();
     out_file.close();

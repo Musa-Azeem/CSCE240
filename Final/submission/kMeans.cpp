@@ -3,11 +3,11 @@
 using namespace std;
 
 kMeans::kMeans(): nvals(0), nclust(0), clusters(nullptr), fitness(0) {}
-kMeans::kMeans(const int _nvals, const int _nclust, const double seed): nvals(_nvals), nclust(_nclust), fitness(0) {
+kMeans::kMeans(const int _nvals, const int _nclust, const double range): nvals(_nvals), nclust(_nclust), fitness(0) {
     clusters = new Clust[nclust];
     for(int i(0); i<nclust; i++){
         srand48(time(NULL));
-        double random = drand48()*seed;  //get semi-random number (use given value for range)
+        double random = drand48()*range;  //get semi-random number (use given value for range)
         clusters[i].centroid = Point(nvals, random, i); //initialize centroids
     }
 }

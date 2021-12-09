@@ -9,7 +9,7 @@ class kMeans{
 
     public:
         kMeans();
-        kMeans(const int _nvals, const int _nclust, const double seed);
+        kMeans(const int _nvals, const int _nclust, const double range);
         kMeans(const kMeans &other);
         ~kMeans();
         const kMeans & operator=(const kMeans &rhs);

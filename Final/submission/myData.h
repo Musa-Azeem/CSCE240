@@ -32,8 +32,8 @@ class myData{
         bool operator==(const myData &other) const;         
         bool operator!=(const myData &other) const;        
         myData operator+(const myData &other) const;
-        int operator[](int index) const;
-        int & operator[](int index);
+        int operator[](const int index) const;
+        int & operator[](const int index);
 
     private:
         Point *data;
