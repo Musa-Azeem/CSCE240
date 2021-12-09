@@ -1,5 +1,5 @@
 #ifndef KMEANS_H
-#define KEANS_H
+#define KMEANS_H
 #include "Point.h"
 #include "Clust.h"
 #include <iostream>
@@ -10,10 +10,13 @@ class kMeans{
 
     public:
         kMeans();
-        kMeans(Point **data, int maxIter, const int toler);
+        kMeans(const int _nclust);
+        double kMeansClustering(Point **data, int maxIter, const int toler);
+        void ClusterSummary() const;
+        double getFitness() const;
 
     private:
-        int nclusts;
+        const int nclust;
         Clust *clusters;
 
         void setMemberships();

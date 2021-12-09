@@ -7,24 +7,25 @@ myData::myData(): data(nullptr), size(0), nvals(0), clusters(nullptr), nclust(0)
 myData::myData(const long int nobserv, const int _nvals, const double val=0): size(nobserv), nvals(_nvals), clusters(nullptr), nclust(0){
     //initilize array to be used to populate object (from given value)
     //initialize data of object with given value and inital membership to first cluster
-    data = new Point*[size];
+    data = new Point[size];
     for(int i(0); i<size; i++){
-        data[i] = new Point(nvals, val, 0);
+        //data[i] = new Point(nvals, val, 0);
+        data[i] = Point(nvals, val, 0);
     }
 }
 myData::myData(const double _data[][0], const long int nobserv, const int _nvals): size(nobserv), nvals(_nvals), clusters(nullptr), nclust(0) {
-    data = new Point*[size];
+    data = new Point[size];
     for(int i(0); i<size; i++){
-        data[i] = new Point(nvals, _data[i], 0);
+        data[i] = Point(nvals, _data[i], 0);
     }
 }
 myData::myData(const myData &other){
     size = other.size;
     nvals = other.nvals;
     if(size != 0){ 
-        data = new Point*[size];
+        data = new Point[size];
         for(int i(0); i<size; i++){
-            data[i] = new Point(*other.data[i]);
+            data[i] = Point(other.data[i]);
         }
     }
     else{
@@ -47,7 +48,6 @@ myData::~myData(){
     }
     delete [] clusters;
     for(int i(0); i<size; i++){
-        delete data[i];
     }
     delete [] data;
 }
@@ -58,16 +58,15 @@ const myData & myData::operator=(const myData &rhs){
     }
     delete [] clusters;
     for(int i(0); i<size; i++){
-        delete data[i];
     }
     delete [] data;
 
     size = rhs.size;
     nvals = rhs.nvals;
     if(size != 0){ 
-        data = new Point*[size];
+        data = new Point[size];
         for(int i(0); i<size; i++){
-            data[i] = new Point(*rhs.data[i]);
+            data[i] = Point(rhs.data[i]);
         }
     }
     else{
@@ -113,9 +112,9 @@ double myData::getMinValue(const int col) const{
         cout << "no data" << endl;
         exit(1);
     }
-    double min((*data[0])[col]);    //get value at given column of first Point in data array
+    double min(data[0][col]);    //get value at given column of first Point in data array
     for(int i(1); i<size; i++){
-        double next((*data[i])[col]);
+        double next(data[i][col]);
         if(next<min){
             min = next;
         }
@@ -127,9 +126,9 @@ double myData::getMaxValue(const int col) const{
         cout << "no data" << endl;
         exit(1);
     }
-    double max((*data[0])[col]);    //get value at given column of first Point in data array
+    double max(data[0][col]);    //get value at given column of first Point in data array
     for(int i(1); i<size; i++){
-        double next((*data[i])[col]);
+        double next(data[i][col]);
         if(next>max){
             max = next;
         }
@@ -143,7 +142,7 @@ double myData::getMean(const int col) const{
     }
     double sum(0);
     for(int i(0); i<size; i++){
-        sum += (*data[i])[col];
+        sum += data[i][col];
     }
     return(sum/size);
 }
@@ -154,7 +153,7 @@ double myData::getStandDev(const int col, const double mean) const{
     }
     double sum(0);
     for(int i(0); i<size; i++){
-        sum += pow(((*data[i])[col]-mean), 2);
+        sum += pow((data[i][col]-mean), 2);
     }
     return(sqrt(sum/size));
 }
@@ -172,23 +171,23 @@ int myData::operator[](int index) const{
         cout << "index out of range" << endl;
         exit(1);
     }
-    return((*data[index]).getMembership());
+    return(data[index].getMembership());
 }
 int & myData::operator[](int index){
     if(index<0 || index>=size){
         cout << "index out of range" << endl;
         exit(1);
     }
-    return((*data[index]).accessMembership());
+    return(data[index].accessMembership());
 }
 myData myData::operator+(const myData &rhs) const{
     int retSize(size+rhs.size);
     myData ret(retSize, nvals);
     for(int i(0); i<size; i++){
-        *ret.data[i] = Point(*data[i]);
+        ret.data[i] = Point(data[i]);
     }
     for(int i(size); i<retSize; i++){
-        *ret.data[i] = Point(*rhs.data[i-size]);
+        ret.data[i] = Point(rhs.data[i-size]);
     }
     return(ret);
 }
@@ -197,7 +196,7 @@ bool myData::operator==(const myData &rhs) const{
         return(0);
     }
     for(int i(0); i<size; i++){
-        if(*data[i]!=*rhs.data[i]){
+        if(data[i]!=rhs.data[i]){
             return(0);
         }    
     }
@@ -216,7 +215,7 @@ istream & operator>>(istream &lhs, myData &rhs){
     cout << "Enter " << rhs.getSize() << " observations of " << rhs.getNvals() << " values:" << endl;
     for(int i(0); i<rhs.getSize(); i++){
         //lhs >> *rhs.accessObserv(i);
-        lhs >> *rhs.data[i];
+        lhs >> rhs.data[i];
     }
     return(lhs);
 }
@@ -229,7 +228,7 @@ ostream & operator<<(ostream &lhs, const myData &rhs){
     Output: data of object is printed to ostream
     */
     for(int i(0); i<rhs.getSize(); i++){
-        lhs << (*rhs.data[i]) << endl;
+        lhs << rhs.data[i] << endl;
     }
     lhs << endl;
     for(int i(0); i<rhs.getNclust(); i++){
@@ -311,9 +310,9 @@ double myData::kMeansClustering(const int _nclust, const int maxIter, const doub
     double tempDist;
     for(int i(0); i<size; i++){
         for(int id(0); id<nclust; id++){                
-            if((*data[i]).getMembership() == id){
-                tempDist = (*data[i]).distance((*clusters[id]).centroid);
-                (*data[i]).setCentroidDistance(tempDist);
+            if(data[i].getMembership() == id){
+                tempDist = data[i].distance((*clusters[id]).centroid);
+                data[i].setCentroidDistance(tempDist);
                 (*clusters[id]).totalDistance += tempDist;
             }
         }
@@ -330,14 +329,14 @@ void myData::setMemberships(){
     int prevMember;
     for(int i(0); i<size; i++){
         //loop through every data point
-        id = (*data[i]).getMembership();    //save the old membership of point before changing it
-        (*data[i]).setCentroidDistance((*data[i]).distance((*clusters[id]).centroid));  //set each points centroid distance to moved centroid
-        leastDist = (*data[i]).getCentroidDistance();   //initially set leastDist to distance to current centroid
+        id = data[i].getMembership();    //save the old membership of point before changing it
+        data[i].setCentroidDistance(data[i].distance((*clusters[id]).centroid));  //set each points centroid distance to moved centroid
+        leastDist = data[i].getCentroidDistance();   //initially set leastDist to distance to current centroid
         prevMember = id;
         for(int j(0); j<nclust; j++){
             //loop through clusters - calculate distance of current point to each cluster
             //set leastDist to the distance to the nearest cluster
-            dist = (*data[i]).distance((*clusters[j]).centroid);
+            dist = data[i].distance((*clusters[j]).centroid);
             if(dist < leastDist){
                 //if the distance to this cluster is less, set membership of point to it
                 leastDist = dist;
@@ -345,7 +344,7 @@ void myData::setMemberships(){
             }
         }
         if(id != prevMember){   //change membership of point if there is a new shortest distance
-            (*data[i]).setMembership(id);
+            data[i].setMembership(id);
             (*clusters[id]).nmembers++;    //incremenent counter of members for centroid
             (*clusters[prevMember]).nmembers--; //decrement old centroid since it lost a member
         }
@@ -364,12 +363,12 @@ double myData::moveCentroids(){
     }
     for(int i(0); i<size; i++){ //loop through all points
         for(int id(0); id<nclust; id++){ //loop through cluster ids
-            if((*data[i]).getMembership() == id){
+            if(data[i].getMembership() == id){
                 //if point is a member of this cluster, add its coordinates to array
                 for(int j(0); j<nvals; j++){
-                    means[id][j] += (*data[i])[j];
+                    means[id][j] += data[i][j];
                 }
-                (*data[i]).setCentroidDistance((*data[i]).distance((*clusters[id]).centroid));
+                data[i].setCentroidDistance(data[i].distance((*clusters[id]).centroid));
             }
         }
     }

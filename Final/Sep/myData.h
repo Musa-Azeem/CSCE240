@@ -37,7 +37,7 @@ class myData{
 
 //        void print() const;
     private:
-        Point **data;
+        Point *data;
         long int size;
         int nvals;
         Clust **clusters;
