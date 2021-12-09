@@ -1,25 +1,31 @@
+/*
+Written by Musa Azeem
+Completed:  
+Implements functions of myData class
+*/
 #include "myData.h"
-#include "kMeans.h"
 #include <math.h>
 
 using namespace std;
 
 myData::myData(): data(nullptr), size(0), nvals(0) {}
 myData::myData(const long int nobserv, const int _nvals, const double val=0): size(nobserv), nvals(_nvals){
-    //initilize array to be used to populate object (from given value)
-    //initialize data of object with given value and inital membership to first cluster
+    /*
+    Alternate Constructor
+    Input:  long int: number of observations, int: number of values for each observation, double: value to populate object with
+    Output: None
+    */
     data = new Point[size];
     for(int i(0); i<size; i++){
         data[i] = Point(nvals, val, -1);
     }
 }
-myData::myData(const double _data[][0], const long int nobserv, const int _nvals): size(nobserv), nvals(_nvals){
-    data = new Point[size];
-    for(int i(0); i<size; i++){
-        data[i] = Point(nvals, _data[i], -1);
-    }
-}
 myData::myData(const myData &other): size(other.size), nvals(other.nvals) {
+    /*
+    Copy Constructor
+    Input:  myData: instance of object to copy
+    Output: None
+    */
     if(size != 0){ 
         data = new Point[size];
         for(int i(0); i<size; i++){
@@ -31,10 +37,20 @@ myData::myData(const myData &other): size(other.size), nvals(other.nvals) {
     }
 }
 myData::~myData(){
+    /*
+    Destructor
+    Input:  None
+    Output: None
+    */
     delete [] data;
 }
 
 const myData & myData::operator=(const myData &rhs){
+    /*
+    assignment operator
+    Input:  myData: instance of myData to copy
+    Output: returns rhs for cascading
+    */
     delete [] data;
 
     size = rhs.size;
@@ -55,6 +71,11 @@ long int myData::getSize() const{return(size);}
 int myData::getNvals() const{return(nvals);}
 
 void myData::Summary() const{
+    /*
+    Prints summary of data and basic analysis to stdout
+    Input:  None
+    Output: Prints data to stdout
+    */
     cout << "Number of points in each column: " << size << endl << endl;;
     for(int i(0); i<nvals; i++){
         cout << "Column " << i << endl;
@@ -67,6 +88,11 @@ void myData::Summary() const{
     }
 }
 double myData::getMinValue(const int col) const{
+    /*
+    Finds the minimum value of a column of data
+    Input:  int: column to calculate minimum value of
+    Output: Minimum value of column
+    */
     if(size==0){
         cout << "no data" << endl;
         exit(1);
@@ -81,6 +107,11 @@ double myData::getMinValue(const int col) const{
     return(min);
 }
 double myData::getMaxValue(const int col) const{
+    /*
+    Finds the maximum value of a column of data
+    Input:  int: column to calculate maximum value of
+    Output: Maximum value of column
+    */
     if(size==0){
         cout << "no data" << endl;
         exit(1);
@@ -95,6 +126,11 @@ double myData::getMaxValue(const int col) const{
     return(max);
 }
 double myData::getMean(const int col) const{
+    /*
+    Finds the mean value of a column of data
+    Input:  int: column to calculate mean value of
+    Output: Mean value of column
+    */
     if(size==0){
         cout << "no data" << endl;
         exit(1);
@@ -106,6 +142,11 @@ double myData::getMean(const int col) const{
     return(sum/size);
 }
 double myData::getStandDev(const int col, const double mean) const{
+    /*
+    Finds the Standard Deviation value of a column of data
+    Input:  int: column to calculate Standard Deviation value of
+    Output: Standard Deviation value of column
+    */
     if(size==0){
         cout << "no data" << endl;
         exit(1);
@@ -118,6 +159,11 @@ double myData::getStandDev(const int col, const double mean) const{
 }
 
 int myData::operator[](const int index) const{
+    /*
+    brackets get operator - returns the membership of the Point at the given index
+    Input:  int: index to get membership of
+    Output: int: membership of point at given index
+    */
     if(index<0 || index>=size){
         cout << "index out of range" << endl;
         exit(1);
@@ -125,6 +171,11 @@ int myData::operator[](const int index) const{
     return(data[index].getMembership());
 }
 int & myData::operator[](const int index){
+    /*
+    brackets set operator - returns the memory location of the membership of the Point at the given index to set
+    Input:  int: index to set membership of
+    Output: int&: memory address of membership of point at given index to set
+    */
     if(index<0 || index>=size){
         cout << "index out of range" << endl;
         exit(1);
@@ -132,6 +183,12 @@ int & myData::operator[](const int index){
     return(data[index].accessMembership());
 }
 myData myData::operator+(const myData &rhs) const{
+    /*
+    Addition operator - concatonates two myData objects and returns new object
+        will exit if the objects' Points are of different dimensions
+    Input:  myData: instance of myData to concatonate
+    Output: new myData object of the concatonated myData objects
+    */
     if(nvals!=rhs.nvals){
         cout << "Objects are of different dimensions" << endl;
         exit(1);
@@ -147,7 +204,13 @@ myData myData::operator+(const myData &rhs) const{
     return(ret);
 }
 bool myData::operator==(const myData &rhs) const{
-    //does not check for memberships
+    /*
+    equality operator - checks if two myData objects are equal
+        order of data must be preserved
+        does not check membership of points
+    Input:  myData: instance of myData to compare to
+    Output: bool, 1 if equal, 0 if not
+    */
     if(size != rhs.size || nvals != rhs.nvals){
         return(0);
     }
@@ -159,11 +222,23 @@ bool myData::operator==(const myData &rhs) const{
     return(1);
 }
 bool myData::operator!=(const myData &rhs) const{
+    /*
+    inequality operator - checks if two myData objects are inequal
+        order of data is checked
+        does not check membership of points
+    Input:  myData: instance of myData to compare to
+    Output: bool, 0 if equal, 1 if not
+    */
     return(!(*this==rhs));
 }
 
 istream & operator>>(istream &lhs, myData &rhs){
-    //requires number of observations (size) to be set beforehand
+    /*
+    stream extraction operator - populates object with values from istream
+        number of observations must be set beforehand
+    Input:  myData: instance of object to populate with values
+    Output: lhs for cascading
+    */
     if(rhs.getSize()==0){
         cout << "Size not set" << endl;
         exit(1);
@@ -191,10 +266,20 @@ ostream & operator<<(ostream &lhs, const myData &rhs){
 }
 
 void myData::ClusterSummary() const{
+    /*
+    Calls kMeans ClusterSummary function to print cluster data to stdout
+    Input:  None
+    Output: Prints cluster info to stdout
+    */
     kMeansClusters.ClusterSummary();
 }
 
 double myData::kMeansClustering(const int _nclust, const int maxIter, const double toler){
+    /*
+    calls kMeans kMeansClustering function, passing in the object's data to perform kMeans Clustering on data
+    Input:  int: number of clusters, int: maximum number of iterations, double: tolerance
+    Output: double: fitness of kMeans Clustering Analysis
+    */
     if(size==0){
         cout << "no data, cannot complete Kmeans Clustering" << endl;
         return(0);
