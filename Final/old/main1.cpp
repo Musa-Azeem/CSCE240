@@ -57,5 +57,8 @@ int main(int argc, char** argv)
     in_file.close();
     out_file.close();
     
+    double data[10][0];
+    myData data4(data, 10, 2);
+
     return(0);
 }

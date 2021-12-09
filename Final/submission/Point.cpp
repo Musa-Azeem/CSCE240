@@ -4,30 +4,18 @@
 using namespace std;
 
 Point::Point(): size(0), coord(nullptr), membership(-1), centroidDistance(-1){}
-/*Point::Point(const int numOfCoord, const double val): size(numOfCoord), membership(-1), centroidDistance(-1){
-    coord = new double[size];
-    for(int i(0); i<size; i++){
-        coord[i] = val;
-    }
-}*/
 Point::Point(const int numOfCoord, const double val, const int _membership): size(numOfCoord), membership(_membership), centroidDistance(-1){
     coord = new double[size];
     for(int i(0); i<size; i++){
         coord[i] = val;
     }
 }
-/*Point::Point(const int numOfCoord, const double *_coord){
-    init(numOfCoord, _coord, -1, -1);
-}*/
 Point::Point(const int numOfCoord, const double *_coord, const int _membership): size(numOfCoord), membership(_membership), centroidDistance(-1) {
     coord = new double[size];
     for(int i(0); i<size; i++){
         coord[i] = _coord[i];
     }
 }
-/*Point::Point(const int numOfCoord, const double *_coord, const int _membership, const double _centroidDistance){
-    init(numOfCoord, _coord, _membership, _centroidDistance);
-}*/
 Point::Point(const Point &other){
     size = other.size;
     membership = other.membership;
@@ -46,20 +34,6 @@ Point::~Point(){
     delete [] coord;
 }
 
-/*void Point::init(const int _size, const double *_data, const int _membership, const double _centroidDistance){
-    size = _size;
-    membership = _membership;
-    centroidDistance = _centroidDistance;
-    if(size == 0){
-        coord = nullptr;
-        return;
-    }
-    coord = new double[size];
-    for(int i(0); i<size; i++){
-        coord[i] = _data[i];
-    }
-}*/
-
 int Point::getSize() const{
     return(size);
 }
@@ -69,9 +43,6 @@ int Point::getMembership() const{
 double Point::getCentroidDistance() const{
     return(centroidDistance);
 }
-/*const double * Point::getCoord() const{
-    return(coord);
-}*/
 
 void Point::setMembership(const int _membership){
     if(_membership<0){
@@ -158,13 +129,6 @@ bool Point::operator==(const Point &rhs) const{
 bool Point::operator!=(const Point &rhs) const{
     return(!(*this==rhs));
 }
-
-/*void Point::print() const{
-    for(int i(0); i<size; i++){
-        cout << coord[i] << " ";
-    }
-    cout << endl;
-}*/
 
 ostream & operator<<(ostream &lhs, const Point &rhs){   //TODO rewrite to ' ' delim
     if(!rhs.coord){
