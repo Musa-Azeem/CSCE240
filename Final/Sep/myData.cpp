@@ -143,6 +143,7 @@ myData myData::operator+(const myData &rhs) const{
     return(ret);
 }
 bool myData::operator==(const myData &rhs) const{
+    //does not check for memberships
     if(size != rhs.size || nvals != rhs.nvals){
         return(0);
     }
