@@ -5,22 +5,25 @@
 #include <iostream>
 
 class kMeans{
-    friend std::istream & operator>>(std::istream &lhs, kMeans &rhs);
     friend std::ostream & operator<<(std::ostream &lhs, const kMeans &rhs);
 
     public:
         kMeans();
-        kMeans(const int _nclust);
-        double kMeansClustering(Point **data, int maxIter, const int toler);
+        kMeans(const int _nvals, const int _nclust, const double seed);
+        kMeans(const kMeans &other);
+        const kMeans & operator=(const kMeans &rhs);
+        double kMeansClustering(Point *data, const int size, const int maxIter, const double toler);
         void ClusterSummary() const;
-        double getFitness() const;
 
     private:
-        const int nclust;
+        int nclust;
         Clust *clusters;
+        int nvals;
+        double fitness;
 
-        void setMemberships();
-        double moveCentroids();
+        void setMemberships(Point *data, const int size);
+        void moveCentroids(Point *data, const int size);
+        void calcFitness(const int size);
 };
 
 #endif

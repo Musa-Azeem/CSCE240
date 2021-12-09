@@ -2,6 +2,7 @@
 #define MYDATA_H
 #include "Point.h"
 #include "Clust.h"
+#include "kMeans.h"
 #include <iostream>
 
 class myData{
@@ -26,26 +27,19 @@ class myData{
         double getMaxValue(const int col) const;
         double getMean(const int col) const;
         double getStandDev(const int col, const double mean) const;
-        double getFitness() const;
 
         const myData & operator=(const myData &other);
-        bool operator==(const myData &other) const;         //TODO
-        bool operator!=(const myData &other) const;         //TODO
+        bool operator==(const myData &other) const;         
+        bool operator!=(const myData &other) const;        
         myData operator+(const myData &other) const;
         int operator[](int index) const;
         int & operator[](int index);
 
-//        void print() const;
     private:
         Point *data;
         long int size;
         int nvals;
-        Clust **clusters;
-        int nclust;
-        
-        void setMemberships();
-        double moveCentroids();
-
+        kMeans kMeansClusters;
 };
 
 #endif
