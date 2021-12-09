@@ -22,6 +22,9 @@ kMeans::kMeans(const kMeans &other): nvals(other.nvals), nclust(other.nclust), f
         }
     }
 }
+kMeans::~kMeans(){
+    delete [] clusters;
+}
 const kMeans & kMeans::operator=(const kMeans &rhs){
     nvals = rhs.nvals;
     nclust = rhs.nclust;

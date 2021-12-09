@@ -11,6 +11,7 @@ class kMeans{
         kMeans();
         kMeans(const int _nvals, const int _nclust, const double seed);
         kMeans(const kMeans &other);
+        ~kMeans();
         const kMeans & operator=(const kMeans &rhs);
         double kMeansClustering(Point *data, const int size, const int maxIter, const double toler);
         void ClusterSummary() const;
